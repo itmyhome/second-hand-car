@@ -14,7 +14,17 @@
 
 <body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
     <div id="wrapper">
-        我是首页
+        <!--左侧导航开始-->
+        @include("/common/_tab.html"){}
+        <!--左侧导航结束-->
+
+        <!--右侧部分开始-->
+        @include("/common/_right.html"){}
+        <!--右侧部分结束-->
+
+        <!--右侧边栏开始-->
+        @include("/common/_theme.html"){}
+        <!--右侧边栏结束-->
 
     </div>
 

@@ -2,6 +2,7 @@ package com.secondhandcar.core.controller;
 
 import com.secondhandcar.core.utils.HttpUtils;
 import com.secondhandcar.core.utils.ReturnResult;
+import com.secondhandcar.core.warpper.BaseControllerWarpper;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -60,12 +61,12 @@ public class BaseController {
 //        return new PageInfoBT<T>(page);
 //    }
 //
-//    /**
-//     * 包装一个list，让list增加额外属性
-//     */
-//    protected Object warpObject(BaseControllerWarpper warpper) {
-//        return warpper.warp();
-//    }
+    /**
+     * 包装一个list，让list增加额外属性
+     */
+    protected Object warpObject(BaseControllerWarpper warpper) {
+        return warpper.warp();
+    }
 
     /**
      * 删除cookie

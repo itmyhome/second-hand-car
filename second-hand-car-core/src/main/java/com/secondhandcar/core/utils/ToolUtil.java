@@ -4,12 +4,34 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.reflect.Array;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 /**
  * 高频方法集合类
  */
 public class ToolUtil {
+
+    /**
+     * 判断一个对象是否是时间类型
+     *
+     * @author stylefeng
+     * @Date 2017/4/18 12:55
+     */
+    public static String dateType(Object o){
+        if(o instanceof Date){
+            DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
+            ZoneId zone = ZoneId.systemDefault();
+            LocalDateTime localDateTime = LocalDateTime.ofInstant(((Date) o).toInstant(), zone);
+            LocalDate localDate = localDateTime.toLocalDate();
+            return formatter.format(localDate);
+        }else{
+            return o.toString();
+        }
+    }
 
     /**
      * 获取随机位数的字符串

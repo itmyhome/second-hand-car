@@ -1,5 +1,7 @@
 package com.secondhandcar.admin.dao;
 
+import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.secondhandcar.admin.model.Dept;
 import com.secondhandcar.core.node.ZTreeNode;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -10,7 +12,7 @@ import java.util.List;
  * Created by xiet on 2017/10/10.
  */
 @Mapper
-public interface DeptDao {
+public interface DeptDao extends BaseMapper<Dept> {
 
     @Select("select id,pid as pId,simplename as name,\n" +
             "\t\t(\n" +

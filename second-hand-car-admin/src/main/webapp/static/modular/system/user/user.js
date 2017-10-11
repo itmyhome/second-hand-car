@@ -52,7 +52,7 @@ MgrUser.openAddMgr = function () {
         area: ['800px', '560px'], //宽高
         fix: false, //不固定
         maxmin: true,
-        content: SecondHandCarAdmin.ctxPath + '/mgr/user_add'
+        content: SecondHandCarAdmin.ctxPath + '/user/user_add'
     });
     this.layerIndex = index;
 };
@@ -69,7 +69,7 @@ MgrUser.openChangeUser = function () {
             area: ['800px', '450px'], //宽高
             fix: false, //不固定
             maxmin: true,
-            content: SecondHandCarAdmin.ctxPath + '/mgr/user_edit/' + this.seItem.id
+            content: SecondHandCarAdmin.ctxPath + '/user/user_edit/' + this.seItem.id
         });
         this.layerIndex = index;
     }
@@ -87,7 +87,7 @@ MgrUser.roleAssign = function () {
             area: ['300px', '400px'], //宽高
             fix: false, //不固定
             maxmin: true,
-            content: SecondHandCarAdmin.ctxPath + '/mgr/role_assign/' + this.seItem.id
+            content: SecondHandCarAdmin.ctxPath + '/user/role_assign/' + this.seItem.id
         });
         this.layerIndex = index;
     }
@@ -101,7 +101,7 @@ MgrUser.delMgrUser = function () {
 
         var operation = function(){
             var userId = MgrUser.seItem.id;
-            var ajax = new $ax(SecondHandCarAdmin.ctxPath + "/mgr/delete", function () {
+            var ajax = new $ax(SecondHandCarAdmin.ctxPath + "/user/delete", function () {
                 SecondHandCarAdmin.success("删除成功!");
                 MgrUser.table.refresh();
             }, function (data) {
@@ -122,7 +122,7 @@ MgrUser.delMgrUser = function () {
 MgrUser.freezeAccount = function () {
     if (this.check()) {
         var userId = this.seItem.id;
-        var ajax = new $ax(SecondHandCarAdmin.ctxPath + "/mgr/freeze", function (data) {
+        var ajax = new $ax(SecondHandCarAdmin.ctxPath + "/user/freeze", function (data) {
             SecondHandCarAdmin.success("冻结成功!");
             MgrUser.table.refresh();
         }, function (data) {
@@ -140,7 +140,7 @@ MgrUser.freezeAccount = function () {
 MgrUser.unfreeze = function () {
     if (this.check()) {
         var userId = this.seItem.id;
-        var ajax = new $ax(SecondHandCarAdmin.ctxPath + "/mgr/unfreeze", function (data) {
+        var ajax = new $ax(SecondHandCarAdmin.ctxPath + "/user/unfreeze", function (data) {
             SecondHandCarAdmin.success("解除冻结成功!");
             MgrUser.table.refresh();
         }, function (data) {
@@ -161,7 +161,7 @@ MgrUser.resetPwd = function () {
             btn: ['确定', '取消'],
             shade: false //不显示遮罩
         }, function () {
-            var ajax = new $ax(SecondHandCarAdmin.ctxPath + "/mgr/reset", function (data) {
+            var ajax = new $ax(SecondHandCarAdmin.ctxPath + "/user/reset", function (data) {
                 SecondHandCarAdmin.success("重置密码成功!");
             }, function (data) {
                 SecondHandCarAdmin.error("重置密码失败!");
@@ -198,7 +198,7 @@ MgrUser.onClickDept = function (e, treeId, treeNode) {
 
 $(function () {
     var defaultColunms = MgrUser.initColumn();
-    var table = new BSTable("managerTable", "/mgr/list", defaultColunms);
+    var table = new BSTable("managerTable", "/user/list", defaultColunms);
     table.setPaginationType("client");
     MgrUser.table = table.init();
     var ztree = new $ZTree("deptTree", "/dept/tree");

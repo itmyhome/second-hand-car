@@ -1,10 +1,14 @@
 package com.secondhandcar.admin.dao;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.secondhandcar.admin.dto.UserQueryDto;
 import com.secondhandcar.admin.model.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by xiet on 2017/10/10.
@@ -32,7 +36,7 @@ public interface UserDao extends BaseMapper<User> {
      *
      * @return
      */
-//    List<Map<String, Object>> selectUsers(@Param("dataScope") DataScope dataScope, @Param("name") String name, @Param("beginTime") String beginTime, @Param("endTime") String endTime, @Param("deptid") Integer deptid);
+    List<Map<String, Object>> selectUsers(@Param("userQueryDto") UserQueryDto userQueryDto, @Param("name") String name, @Param("beginTime") String beginTime, @Param("endTime") String endTime, @Param("deptid") Integer deptid);
 
     /**
      * 设置用户的角色
