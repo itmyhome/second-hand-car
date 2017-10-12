@@ -1,0 +1,11 @@
+package ${service.packageName};
+
+/**
+ * ${context.bizChName}Service
+ *
+ * @author xietao
+ * @Date ${tool.currentTime()}
+ */
+public interface ${context.bizEnBigName}Service {
+
+}

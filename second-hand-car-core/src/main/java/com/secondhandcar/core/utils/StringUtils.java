@@ -110,4 +110,17 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils{
         char[] newStrArray = Arrays.copyOfRange(strArray, fromIndex, toIndex);
         return new String(newStrArray);
     }
+
+    /**
+     * 首字母变大写
+     */
+    public static String firstCharToUpperCase(String str) {
+        char firstChar = str.charAt(0);
+        if (firstChar >= 'a' && firstChar <= 'z') {
+            char[] arr = str.toCharArray();
+            arr[0] -= ('a' - 'A');
+            return new String(arr);
+        }
+        return str;
+    }
 }

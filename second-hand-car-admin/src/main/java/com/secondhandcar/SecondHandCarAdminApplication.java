@@ -1,4 +1,4 @@
-package com.secondhandcar.admin;
+package com.secondhandcar;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

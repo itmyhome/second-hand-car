@@ -39,7 +39,7 @@ public class DictUtils {
     /**
      * 解析一个组合字符串(例如:  "1:启用;2:禁用;3:冻结"  这样的字符串)
      *
-     * @author fengshuonan
+     * @author xietao
      * @Date 2017/4/27 16:44
      */
     public static List<Map<String,String>> parseKeyValue(String mutiString){

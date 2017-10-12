@@ -1,6 +1,7 @@
 package com.secondhandcar.admin.warpper;
 
 import com.secondhandcar.admin.common.factory.ConstantFactory;
+import com.secondhandcar.core.utils.ToolUtil;
 import com.secondhandcar.core.warpper.BaseControllerWarpper;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public class UserWarpper extends BaseControllerWarpper {
         map.put("roleName", ConstantFactory.me().getRoleName((String) map.get("roleid")));
         map.put("deptName", ConstantFactory.me().getDeptName((Integer) map.get("deptid")));
         map.put("statusName", ConstantFactory.me().getStatusName((Integer) map.get("status")));
+        map.put("createtime", ToolUtil.formatLocalDateTime(map.get("createtime")));
     }
 
 }

@@ -173,7 +173,7 @@ public class MenuNode implements Comparable {
     /**
      * 构建整个菜单树
      *
-     * @author fengshuonan
+     * @author xietao
      */
     public void buildNodeTree(List<MenuNode> nodeList) {
         for (MenuNode treeNode : nodeList) {
@@ -187,7 +187,7 @@ public class MenuNode implements Comparable {
     /**
      * 查询子节点的集合
      *
-     * @author fengshuonan
+     * @author xietao
      */
     public List<MenuNode> findChildNodes(List<MenuNode> nodeList, Integer parentId) {
         if (nodeList == null && parentId == null)
@@ -205,7 +205,7 @@ public class MenuNode implements Comparable {
     /**
      * 遍历一个节点的子节点
      *
-     * @author fengshuonan
+     * @author xietao
      */
     public void recursionFn(List<MenuNode> nodeList, MenuNode node, Integer pId) {
         List<MenuNode> childList = getChildList(nodeList, node);// 得到子节点列表
@@ -228,7 +228,7 @@ public class MenuNode implements Comparable {
     /**
      * 得到子节点列表
      *
-     * @author fengshuonan
+     * @author xietao
      */
     private List<MenuNode> getChildList(List<MenuNode> list, MenuNode node) {
         List<MenuNode> nodeList = new ArrayList<MenuNode>();

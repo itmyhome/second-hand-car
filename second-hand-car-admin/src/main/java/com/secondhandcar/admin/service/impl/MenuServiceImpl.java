@@ -22,7 +22,11 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public void delMenu(Integer menuId) {
+        //删除菜单
+        this.menuDao.deleteById(menuId);
 
+        //删除关联的relation
+        this.menuDao.deleteRelationByMenu(menuId);
     }
 
     @Override

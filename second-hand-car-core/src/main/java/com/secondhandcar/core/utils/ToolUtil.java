@@ -18,16 +18,29 @@ public class ToolUtil {
     /**
      * 判断一个对象是否是时间类型
      *
-     * @author stylefeng
-     * @Date 2017/4/18 12:55
      */
-    public static String dateType(Object o){
+    public static String formatLocalDate(Object o){
         if(o instanceof Date){
             DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
             ZoneId zone = ZoneId.systemDefault();
             LocalDateTime localDateTime = LocalDateTime.ofInstant(((Date) o).toInstant(), zone);
             LocalDate localDate = localDateTime.toLocalDate();
             return formatter.format(localDate);
+        }else{
+            return o.toString();
+        }
+    }
+
+    /**
+     * 格式化对象为时间类型
+     *
+     */
+    public static String formatLocalDateTime(Object o){
+        if(o instanceof Date){
+            DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+            ZoneId zone = ZoneId.systemDefault();
+            LocalDateTime localDateTime = LocalDateTime.ofInstant(((Date) o).toInstant(), zone);
+            return formatter.format(localDateTime);
         }else{
             return o.toString();
         }
@@ -470,5 +483,14 @@ public class ToolUtil {
      */
     public static String getTempPath(){
         return System.getProperty("java.io.tmpdir");
+    }
+
+
+    /**
+     * 当前时间
+     *
+     */
+    public static String currentTime(){
+        return LocalDateTime.now().toString();
     }
 }
