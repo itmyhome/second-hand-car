@@ -1,5 +1,6 @@
 package com.secondhandcar.admin.common.factory;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.secondhandcar.admin.dao.*;
 import com.secondhandcar.admin.model.*;
 import com.secondhandcar.admin.utils.SpringContextHolder;
@@ -152,7 +153,17 @@ public class ConstantFactory implements IConstantFactory {
 
     @Override
     public List<Dict> findInDict(Integer id) {
-        return null;
+        if (ToolUtil.isEmpty(id)) {
+            return null;
+        } else {
+            EntityWrapper<Dict> wrapper = new EntityWrapper<>();
+            List<Dict> dicts = dictDao.selectList(wrapper.eq("pid", id));
+            if (dicts == null || dicts.size() == 0) {
+                return null;
+            } else {
+                return dicts;
+            }
+        }
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.secondhandcar.admin.dao;
 
+import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.secondhandcar.admin.model.Dict;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -7,7 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 import java.util.Map;
 @Mapper
-public interface DictDao {
+public interface DictDao extends BaseMapper<Dict>{
 
     /**
      * 根据编码获取词典列表

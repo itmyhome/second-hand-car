@@ -2,7 +2,7 @@ package com.secondhandcar.admin.dao;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.secondhandcar.admin.model.Menu;
-import com.secondhandcar.admin.model.User;
+import com.secondhandcar.core.node.MenuNode;
 import com.secondhandcar.core.node.ZTreeNode;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -69,7 +69,7 @@ public interface MenuDao extends BaseMapper<Menu> {
      * @return
      * @date 2017年2月19日 下午10:35:40
      */
-//    List<MenuNode> getMenusByRoleIds(List<Integer> roleIds);
+    List<MenuNode> getMenusByRoleIds(List<Integer> roleIds);
 
 
 }

@@ -7,9 +7,9 @@
                 <div class="dropdown profile-element">
                     <span><img alt="image" class="img-circle"
                                @if(isEmpty(avatar)){
-                                    src="${ctxPath}/static/img/girl.gif"
+                               src="${ctxPath}/static/img/girl.gif"
                                @}else{
-                                    src="${ctxPath}/kaptcha/${avatar}"
+                               src="${ctxPath}/kaptcha/${avatar}"
                                @}
                                width="64px" height="64px"/></span>
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
@@ -27,43 +27,43 @@
                 <div class="logo-element">GS
                 </div>
             </li>
-            
-            @for(title in titles){
-                @if(tool.isEmpty(title.children)){
-                    <li>
-                        <a class="J_menuItem" href="${ctxPath}${title.url}" name="tabMenuItem">
-                            <i class="fa ${title.icon}"></i>
-                            <span class="nav-label">${title.name}</span>
-                        </a>
-                    </li>
+
+            @for(menuNode in menuNodeList){
+                @if(tool.isEmpty(menuNode.children)){
+                <li>
+                    <a class="J_menuItem" href="${ctxPath}${menuNode.url}" name="tabMenuItem">
+                        <i class="fa ${menuNode.icon}"></i>
+                        <span class="nav-label">${menuNode.name}</span>
+                    </a>
+                </li>
                 @}else{
-                    <li>
-                        <a href="#">
-                            <i class="fa ${title.icon}"></i>
-                            <span class="nav-label">${title.name}</span>
-                            <span class="fa arrow"></span>
-                        </a>
-                        <ul class="nav nav-second-level">
-                            @for(subTitle in title.children){
-                                @if(tool.isEmpty(subTitle.children)){
+                <li>
+                    <a href="#">
+                        <i class="fa ${menuNode.icon}"></i>
+                        <span class="nav-label">${menuNode.name}</span>
+                        <span class="fa arrow"></span>
+                    </a>
+                    <ul class="nav nav-second-level">
+                        @for(subMenuNode in menuNode.children){
+                            @if(tool.isEmpty(subMenuNode.children)){
+                            <li>
+                                <a class="J_menuItem" href="${ctxPath}${subMenuNode.url}" name="tabMenuItem">${subMenuNode.name}</a>
+                            </li>
+                            @}else{
+                            <li>
+                                <a href="#">${subMenuNode.name} <span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    @for(thirdMenuNode in subMenuNode.children){
                                     <li>
-                                        <a class="J_menuItem" href="${ctxPath}${subTitle.url}" name="tabMenuItem">${subTitle.name}</a>
+                                        <a class="J_menuItem" href="${ctxPath}${thirdMenuNode.url}" name="tabMenuItem">${thirdMenuNode.name}</a>
                                     </li>
-                                @}else{
-                                    <li>
-                                        <a href="#">${subTitle.name} <span class="fa arrow"></span></a>
-                                        <ul class="nav nav-third-level">
-                                            @for(thirdTitle in subTitle.children){
-                                            <li>
-                                                <a class="J_menuItem" href="${ctxPath}${thirdTitle.url}" name="tabMenuItem">${thirdTitle.name}</a>
-                                            </li>
-                                            @}
-                                        </ul>
-                                    </li>
-                                @}
+                                    @}
+                                </ul>
+                            </li>
                             @}
-                        </ul>
-                    </li>
+                        @}
+                    </ul>
+                </li>
                 @}
             @}
 

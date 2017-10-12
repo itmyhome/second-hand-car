@@ -1,10 +1,16 @@
 package com.secondhandcar.admin.controller;
 
+import com.google.common.collect.Lists;
+import com.secondhandcar.admin.dao.MenuDao;
 import com.secondhandcar.core.controller.BaseController;
+import com.secondhandcar.core.node.MenuNode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Created by xiet on 2017/10/10.
@@ -12,6 +18,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 @Slf4j
 public class LoginController extends BaseController {
+
+    @Resource
+    private MenuDao menuDao;
 
     /**
      * 跳转到主页
@@ -26,11 +35,12 @@ public class LoginController extends BaseController {
 //            model.addAttribute("tips", "该用户没有角色，无法登陆");
 //            return "/login.html";
 //        }
-//        List<MenuNode> menus = menuDao.getMenusByRoleIds(roleList);
-//        List<MenuNode> titles = MenuNode.buildTitle(menus);
+        List<Integer> roleList = Lists.newArrayList(1);
+        List<MenuNode> menus = menuDao.getMenusByRoleIds(roleList);
+        List<MenuNode> menuNodeList = MenuNode.buildTitle(menus);
 //        titles = ApiMenuFilter.build(titles);
-//
-//        model.addAttribute("titles", titles);
+
+        model.addAttribute("menuNodeList", menuNodeList);
 //
 //        //获取用户头像
 //        Integer id = ShiroKit.getUser().getId();
