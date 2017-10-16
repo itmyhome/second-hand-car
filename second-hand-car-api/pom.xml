@@ -11,5 +11,18 @@
 
     <artifactId>second-hand-car-api</artifactId>
 
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.secondjhandcar</groupId>
+            <artifactId>second-hand-car-core</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+    </dependencies>
 </project>
