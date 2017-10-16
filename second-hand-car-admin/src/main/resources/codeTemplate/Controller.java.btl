@@ -27,7 +27,7 @@ public class ${context.bizEnBigName}Controller extends BaseController {
     /**
      * 跳转到添加${context.bizChName}
      */
-    @RequestMapping("/${context.bizEnName}_add")
+    @GetMapping("/add")
     public String ${context.bizEnName}Add() {
         return PREFIX + "${context.bizEnName}_add.html";
     }
@@ -35,7 +35,7 @@ public class ${context.bizEnBigName}Controller extends BaseController {
     /**
      * 跳转到修改${context.bizChName}
      */
-    @RequestMapping("/${context.bizEnName}_update/{${context.bizEnName}Id}")
+    @RequestMapping("/update/{${context.bizEnName}Id}")
     public String ${context.bizEnName}Update(@PathVariable Integer ${context.bizEnName}Id, Model model) {
         return PREFIX + "${context.bizEnName}_edit.html";
     }

@@ -13,7 +13,7 @@
     <div class="col-sm-9">
         <input class="form-control" id="${id}" name="${id}"
                @if(isNotEmpty(value)){
-                    value="${tool.dateType(value)}"
+                    value="${tool.formatLocalDate(value)}"
                @}
                @if(isNotEmpty(type)){
                     type="${type}"

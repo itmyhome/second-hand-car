@@ -1,8 +1,16 @@
 package com.secondhandcar.admin.controller;
 
+import com.qiniu.common.QiniuException;
+import com.qiniu.common.Zone;
+import com.qiniu.http.Response;
+import com.qiniu.storage.Configuration;
+import com.qiniu.storage.UploadManager;
+import com.qiniu.util.Auth;
 import com.secondhandcar.admin.common.enums.BizExceptionEnum;
 import com.secondhandcar.admin.common.enums.UserStatusEnum;
 import com.secondhandcar.admin.common.exception.BussinessException;
+import com.secondhandcar.admin.common.factory.ConstantFactory;
+import com.secondhandcar.admin.config.FileUploadConfig;
 import com.secondhandcar.admin.dao.UserDao;
 import com.secondhandcar.admin.dto.UserAddDto;
 import com.secondhandcar.admin.model.User;
@@ -10,18 +18,19 @@ import com.secondhandcar.admin.utils.ShiroUtils;
 import com.secondhandcar.admin.utils.UserFactory;
 import com.secondhandcar.admin.warpper.UserWarpper;
 import com.secondhandcar.core.controller.BaseController;
+import com.secondhandcar.core.utils.FileUploadUtils;
 import com.secondhandcar.core.utils.ToolUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.naming.NoPermissionException;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -31,12 +40,19 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/user")
+@Slf4j
 public class UserController extends BaseController{
 
     private static String PREFIX = "/system/user/";
 
     @Resource
     private UserDao userDao;
+
+    @Resource
+    private FileUploadConfig fileUploadConfig;
+
+    @Resource
+    private FileUploadUtils fileUploadUtils;
 
     /**
      * 跳转到查看管理员列表的页面
@@ -136,6 +152,67 @@ public class UserController extends BaseController{
 //                throw new BussinessException(BizExceptionEnum.NO_PERMITION);
 //            }
 //        }
+    }
+
+    /**
+     * 跳转到查看用户详情页面
+     */
+    @RequestMapping("/user_info")
+    public String userInfo(Model model) {
+        Integer userId = 1;
+        if (ToolUtil.isEmpty(userId)) {
+            throw new BussinessException(BizExceptionEnum.REQUEST_NULL);
+        }
+        User user = this.userDao.selectById(userId);
+        model.addAttribute(user);
+        model.addAttribute("roleName", ConstantFactory.me().getRoleName(user.getRoleid()));
+        model.addAttribute("deptName", ConstantFactory.me().getDeptName(user.getDeptid()));
+//        LogObjectHolder.me().set(user);
+        return PREFIX + "user_view.html";
+    }
+
+    /**
+     * 上传图片(上传到项目的webapp/static/img)
+     */
+    @PostMapping(path = "/upload")
+    @ResponseBody
+    public String upload(@RequestPart("file") MultipartFile picture) {
+//        String pictureName = UUID.randomUUID().toString() + ".jpg";
+//        try {
+//            String fileSavePath = fileUploadConfig.getFileUploadPath();
+//            log.info("file upload path is {} ", fileSavePath);
+//            picture.transferTo(new File(fileSavePath + pictureName));
+//        } catch (Exception e) {
+//            throw new BussinessException(BizExceptionEnum.UPLOAD_ERROR);
+//        }
+        System.out.println("文件长度: " + picture.getSize());
+        System.out.println("文件类型: " + picture.getContentType());
+        System.out.println("文件名称: " + picture.getName());
+        System.out.println("文件原名: " + picture.getOriginalFilename());
+        String fileName = "";
+
+        try {
+            fileName = fileUploadUtils.upload(picture.getInputStream());
+        } catch (IOException e) {
+            log.error("文件上传失败" + e);
+        }
+
+
+        return fileUploadUtils.getFileUrlPrefix() + fileName;
+    }
+
+    public static void main(String[] args) {
+        Zone z = Zone.autoZone();
+        Configuration c = new Configuration(z);
+        UploadManager uploadManager = new UploadManager(c);
+        Auth auth = Auth.create("uUYmEr_7chG8hLbtXp1pJDSJL0qR2Vv772wKqLrj", "NEouGJGzbmgx3_9XJioUZjObqUd_I8vRk8OhbDTg");
+        String token = auth.uploadToken("ershouche");
+        try {
+            Response r = uploadManager.put("hello world".getBytes(), "1234567", token);
+            System.out.println(r.bodyString());
+        } catch (QiniuException e) {
+            e.printStackTrace();
+        }
     }
 
 

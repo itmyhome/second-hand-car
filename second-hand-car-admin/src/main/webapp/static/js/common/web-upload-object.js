@@ -13,7 +13,7 @@
 		this.pictureId = pictureId;
 		this.uploadBtnId = pictureId + "BtnId";
 		this.uploadPreId = pictureId + "PreId";
-		this.uploadUrl = SecondHandCarAdmin.ctxPath + '/mgr/upload';
+		this.uploadUrl = SecondHandCarAdmin.ctxPath + '/user/upload';
 		this.fileSizeLimit = 100 * 1024 * 1024;
 		this.picWidth = 800;
 		this.picHeight = 800;
@@ -70,6 +70,7 @@
 				// 生成缩略图
 				bindedObj.makeThumb(file, function(error, src) {
 					if (error) {
+						console.info(error)
 						$img.replaceWith('<span>不能预览</span>');
 						return;
 					}
@@ -85,7 +86,8 @@
 			// 文件上传成功，给item添加成功class, 用样式标记上传成功。
 			bindedObj.on('uploadSuccess', function(file,response) {
 				SecondHandCarAdmin.success("上传成功");
-				$("#" + me.pictureId).val(response);
+				console.info(response._raw)
+				$("#" + me.pictureId).val(response._raw);
 			});
 
 			// 文件上传失败，显示上传出错。
