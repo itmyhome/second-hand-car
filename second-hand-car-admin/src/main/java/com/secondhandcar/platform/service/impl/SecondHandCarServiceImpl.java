@@ -1,5 +1,6 @@
 package com.secondhandcar.platform.service.impl;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.secondhandcar.admin.utils.DictUtils;
 import com.secondhandcar.platform.dao.SecondHandCarDao;
 import com.secondhandcar.platform.model.SecondHandCar;
@@ -74,5 +75,11 @@ public class SecondHandCarServiceImpl implements SecondHandCarService {
     @Override
     public SecondHandCar selectById(Integer id) {
         return secondHandCarDao.selectById(id);
+    }
+
+    @Override
+    public List<Map<String, Object>> selectSecondHandCars() {
+        List<Map<String, Object>> secondHandCarMap = secondHandCarDao.selectMaps(new EntityWrapper<SecondHandCar>());
+        return secondHandCarMap;
     }
 }

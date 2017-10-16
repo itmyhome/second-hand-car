@@ -1,7 +1,6 @@
 package com.secondhandcar.platform.model;
 
 import com.baomidou.mybatisplus.activerecord.Model;
-import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
@@ -39,20 +38,17 @@ public class SecondHandCar extends Model<SecondHandCar> implements Serializable{
     /**
      * 上牌日期
      */
-    @TableField("license_date")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-mm-dd")
     private Date licenseDate;
 
     /**
      * 行驶里程
      */
-    @TableField("road_haul")
     private String roadHaul;
 
     /**
      * 缩略图
      */
-    @TableField("thumb_img")
     private String thumbImg;
 
     /**
@@ -63,13 +59,11 @@ public class SecondHandCar extends Model<SecondHandCar> implements Serializable{
     /**
      * 首付
      */
-    @TableField("first_pay")
     private String firstPay;
 
     /**
      * 是否新上架
      */
-    @TableField("new_post")
     private String newPost;
 
     /**
@@ -85,9 +79,7 @@ public class SecondHandCar extends Model<SecondHandCar> implements Serializable{
      * 排序
      */
     private Integer orderNo;
-
     private Date createTime;
-
     private Date updateTime;
 
     @Override

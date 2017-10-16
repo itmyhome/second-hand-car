@@ -2,6 +2,9 @@ package com.secondhandcar.platform.service;
 
 import com.secondhandcar.platform.model.SecondHandCar;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * 二手车Service
  *
@@ -17,5 +20,7 @@ public interface SecondHandCarService {
     void delete(Integer id);
 
     SecondHandCar selectById(Integer id);
+
+    List<Map<String, Object>> selectSecondHandCars();
 
 }

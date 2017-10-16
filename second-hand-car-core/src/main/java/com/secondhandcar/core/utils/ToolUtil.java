@@ -1,5 +1,7 @@
 package com.secondhandcar.core.utils;
 
+import org.apache.commons.lang.RandomStringUtils;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -46,6 +48,15 @@ public class ToolUtil {
         }
     }
 
+
+    /**
+     * 生成二手车id
+     * @return
+     */
+    public static String getSecondHandCarId(){
+        return "RHS-" + LocalDateTime.now().format(DateTimeFormatter.ISO_WEEK_DATE).replaceAll("-","") +
+                "-" +RandomStringUtils.randomNumeric(10);
+    }
     /**
      * 获取随机位数的字符串
      *

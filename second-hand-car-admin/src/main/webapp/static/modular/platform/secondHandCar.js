@@ -14,7 +14,11 @@ var SecondHandCar = {
 SecondHandCar.initColumn = function () {
     return [
         {field: 'selectItem', radio: true},
-        {title: 'id', field: 'id', visible: false, align: 'center', valign: 'middle'}
+        {title: 'id', field: 'id', visible: false, align: 'center', valign: 'middle'},
+        {title: '车辆编号', field: 'carId', align: 'center', valign: 'middle', sortable: true},
+        {title: '车辆标题', field: 'title', align: 'center', valign: 'middle', sortable: true},
+        {title: '上牌日期', field: 'licenseDate', align: 'center', valign: 'middle', sortable: true},
+        {title: '行驶里程', field: 'roadHaul', align: 'center', valign: 'middle', sortable: true},
     ];
 };
 
@@ -58,7 +62,7 @@ SecondHandCar.openSecondHandCarDetail = function () {
             area: ['800px', '420px'], //宽高
             fix: false, //不固定
             maxmin: true,
-            content: SecondHandCarAdmin.ctxPath + '/secondHandCar/secondHandCar_update/' + SecondHandCar.seItem.id
+            content: SecondHandCarAdmin.ctxPath + '/secondHandCar/secondHandCar_edit/' + SecondHandCar.seItem.id
         });
         this.layerIndex = index;
     }
