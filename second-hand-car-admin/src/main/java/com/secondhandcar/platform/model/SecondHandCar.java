@@ -6,10 +6,10 @@ import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 /**
  * 二手车
@@ -40,7 +40,8 @@ public class SecondHandCar extends Model<SecondHandCar> implements Serializable{
      * 上牌日期
      */
     @TableField("license_date")
-    private String licenseDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date licenseDate;
 
     /**
      * 行驶里程
@@ -74,7 +75,7 @@ public class SecondHandCar extends Model<SecondHandCar> implements Serializable{
     /**
      * 热门属性
      */
-    private transient List<SecondHandCarHotParam> secondHandCarHotParamList;
+    private transient String secondHandCarHotParamStr;
 
     /**
      * 版本（乐观锁保留字段）

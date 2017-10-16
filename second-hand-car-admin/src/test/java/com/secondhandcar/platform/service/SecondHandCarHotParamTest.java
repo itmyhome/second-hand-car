@@ -18,7 +18,7 @@ public class SecondHandCarHotParamTest extends BaseJunit {
     public void add(){
         for (int i = 0; i < 5; i++) {
             SecondHandCarHotParam secondHandCarHotParam = new SecondHandCarHotParam();
-            secondHandCarHotParam.setCardId("12345");
+            secondHandCarHotParam.setCarId("12345");
             secondHandCarHotParam.setText("新车");
             secondHandCarHotParam.setColor("#12345");
             secondHandCarHotParamService.add(secondHandCarHotParam);
@@ -31,7 +31,7 @@ public class SecondHandCarHotParamTest extends BaseJunit {
     public void update(){
         SecondHandCarHotParam secondHandCarHotParam = new SecondHandCarHotParam();
         secondHandCarHotParam.setId(1);
-        secondHandCarHotParam.setCardId("66666");
+        secondHandCarHotParam.setCarId("66666");
         secondHandCarHotParam.setText("新车333");
         secondHandCarHotParam.setColor("#12345");
 
@@ -41,5 +41,10 @@ public class SecondHandCarHotParamTest extends BaseJunit {
     @Test
     public void delete(){
         secondHandCarHotParamService.delete(1);
+    }
+
+    @Test
+    public void deleyeByCarId(){
+        secondHandCarHotParamService.deleteByCarId("12345");
     }
 }

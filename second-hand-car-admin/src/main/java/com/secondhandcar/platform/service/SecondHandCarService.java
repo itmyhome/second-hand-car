@@ -14,6 +14,8 @@ public interface SecondHandCarService {
 
     void update(SecondHandCar secondHandCar);
 
-    void delete(Integer secondHandCarId);
+    void delete(Integer id);
+
+    SecondHandCar selectById(Integer id);
 
 }

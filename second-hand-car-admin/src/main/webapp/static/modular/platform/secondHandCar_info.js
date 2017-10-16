@@ -2,7 +2,20 @@
  * 初始化二手车详情对话框
  */
 var SecondHandCarInfoDlg = {
-    secondHandCarInfoData: {}
+    count: $("#itemSize").val(),
+    secondHandCarInfoData: {},
+    itemTemplate: $("#itemTemplate").html()
+};
+
+/**
+ * item获取新的id
+ */
+SecondHandCarInfoDlg.newId = function () {
+    if(this.count == undefined){
+        this.count = 0;
+    }
+    this.count = this.count + 1;
+    return "secondHandCarHotParam" + this.count;
 };
 
 /**
@@ -41,10 +54,52 @@ SecondHandCarInfoDlg.close = function () {
 }
 
 /**
+ * 添加条目
+ */
+SecondHandCarInfoDlg.addItem = function () {
+    $("#itemsArea").append(this.itemTemplate);
+    $("#secondHandCarHotParam").attr("id", this.newId());
+};
+
+/**
+ * 删除item
+ */
+SecondHandCarInfoDlg.deleteItem = function (event) {
+    var obj = SecondHandCarAdmin.eventParseObject(event);
+    obj.parent().parent().remove();
+};
+
+/**
+ * 清除为空的item Dom
+ */
+SecondHandCarInfoDlg.clearNullDom = function(){
+    $("[name='secondHandCarHotParam']").each(function(){
+        var text = $(this).find("[name='text']").val();
+        var color = $(this).find("[name='color']").val();
+        if(text == '' || color == ''){
+            $(this).remove();
+        }
+    });
+};
+
+/**
  * 收集数据
  */
 SecondHandCarInfoDlg.collectData = function () {
-    this.set('id');
+    this.clearNullDom();
+
+    this.set('id').set('carId').set('title').set('licenseDate').set('roadHaul').set('price')
+        .set('firstPay').set('newPost').set('orderNo').set('thumbImg');
+
+    var multiString = "";
+    $("[name='secondHandCarHotParam']").each(function(){
+        var text = $(this).find("[name='text']").val();
+        var color = $(this).find("[name='color']").val();
+        multiString = multiString + (text + ":" + color + ";");
+    });
+
+    this.set('secondHandCarHotParamStr', multiString);
+
 }
 
 /**
@@ -76,7 +131,7 @@ SecondHandCarInfoDlg.editSubmit = function () {
     this.collectData();
 
     //提交信息
-    var ajax = new $ax(Feng.ctxPath + "/secondHandCar/update", function (data) {
+    var ajax = new $ax(SecondHandCarAdmin.ctxPath + "/secondHandCar/update", function (data) {
         SecondHandCarAdmin.success("修改成功!");
         window.parent.SecondHandCar.table.refresh();
         SecondHandCarInfoDlg.close();

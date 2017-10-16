@@ -23,7 +23,7 @@ public class SecondHandCarHotParam extends Model<SecondHandCarHotParam> implemen
     /**
      * 二手车表中的cardId
      */
-    private String cardId;
+    private String carId;
 
     /**
      * 热门属性文本
