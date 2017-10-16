@@ -19,6 +19,23 @@ SecondHandCar.initColumn = function () {
         {title: '车辆标题', field: 'title', align: 'center', valign: 'middle', sortable: true},
         {title: '上牌日期', field: 'licenseDate', align: 'center', valign: 'middle', sortable: true},
         {title: '行驶里程', field: 'roadHaul', align: 'center', valign: 'middle', sortable: true},
+        {title: '缩略图', field: 'thumbImg', align: 'center', valign: 'middle', sortable: true, formatter:function (value,row,index) {
+            if(value != "" && value != null){
+                return '<img height=\"80\" width=\"150\" src=\"' + value + '\">';
+            }else{
+                return '暂无图片';
+            }
+
+        }},
+        {title: '总价', field: 'price', align: 'center', valign: 'middle', sortable: true},
+        {title: '首付', field: 'firstPay', align: 'center', valign: 'middle', sortable: true},
+        {title: '是否新上架', field: 'newPost', align: 'center', valign: 'middle', sortable: true,  formatter:function (value,row,index){
+            if(value){
+                return "是";
+            }else{
+                return "否";
+            }
+        }},
     ];
 };
 
@@ -79,7 +96,7 @@ SecondHandCar.delete = function () {
         }, function (data) {
             SecondHandCarAdmin.error("删除失败!" + data.responseJSON.message + "!");
         });
-        ajax.set("secondHandCarId",this.seItem.id);
+        ajax.set("id",this.seItem.id);
         ajax.start();
     }
 };

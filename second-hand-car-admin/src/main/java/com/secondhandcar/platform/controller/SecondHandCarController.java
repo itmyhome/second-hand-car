@@ -93,7 +93,8 @@ public class SecondHandCarController extends BaseController {
      */
     @RequestMapping(value = "/delete")
     @ResponseBody
-    public Object delete() {
+    public Object delete(Integer id) {
+        secondHandCarService.delete(id);
         return SUCCESS_TIP;
     }
 

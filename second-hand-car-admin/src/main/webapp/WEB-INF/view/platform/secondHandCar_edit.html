@@ -22,7 +22,7 @@
                         <option value="0">否</option>
                     </#select>
                     <#input id="orderNo" name="排序" underline="true" value="${secondHandCar.orderNo}"/>
-                    <#avatar id="thumbImg" name="汽车缩略图" underline="true" value="${secondHandCar.thumbImg}"/>
+                    <#thumbImg id="thumbImg" name="汽车缩略图" underline="true" thumbImg="${secondHandCar.thumbImg}"/>
 
                     <#button btnCss="info" name="增加" icon="fa-plus" clickFun="SecondHandCarInfoDlg.addItem()"/>
                     @for(item in secondHandCarHotParamList){
@@ -36,7 +36,7 @@
                             <input class="form-control" type="text" name="color" value="${item.color}">
                         </div>
                         <div class="col-sm-4">
-                            <#button btnCss="danger" name="删除" id="cancel" icon="fa-remove" clickFun="DictInfoDlg.deleteItem(event)"/>
+                            <#button btnCss="danger" name="删除" id="cancel" icon="fa-remove" clickFun="SecondHandCarInfoDlg.deleteItem(event)"/>
                         </div>
                     </div>
                     @}
