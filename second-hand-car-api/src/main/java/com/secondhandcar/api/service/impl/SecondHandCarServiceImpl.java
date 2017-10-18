@@ -1,5 +1,6 @@
 package com.secondhandcar.api.service.impl;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.secondhandcar.api.dao.SecondHandCarDao;
 import com.secondhandcar.api.model.SecondHandCar;
 import com.secondhandcar.api.service.SecondHandCarService;
@@ -17,15 +18,11 @@ public class SecondHandCarServiceImpl implements SecondHandCarService{
     @Resource
     private SecondHandCarDao secondHandCarDao;
     /**
-     * 查询二手车列表
+     * 获取二手车列表
      * @return
      */
-    public List<SecondHandCar> findSecondHandCarList(){
-        List<SecondHandCar> list = secondHandCarDao.findSecondHandCarList();
-        if(list != null && list.size() != 0){
-            return list;
-        }else{
-            return new ArrayList<>();
-        }
+    public List<SecondHandCar> getSecondHandCars(){
+        List<SecondHandCar> secondHandCarMap = secondHandCarDao.getSecondHandCars();
+        return secondHandCarMap;
     }
 }

@@ -15,7 +15,7 @@
         <result property="orderNo" column="order_no"></result>
         <result property="createTime" column="create_time"></result>
         <result property="updateTime" column="update_time"></result>
-        <collection property="secondHandCarHotParamList" resultMap=""></collection>
+        <collection property="secondHandCarHotParamList" resultMap="secondHandCarHotParamResultMap"></collection>
     </resultMap>
     
     <resultMap id="secondHandCarHotParamResultMap" type="com.secondhandcar.api.model.SecondHandCarHotParam">
@@ -28,7 +28,7 @@
     </resultMap>
 
     <!-- 查询二手车列表 -->
-    <select id="findSecondHandCarList" resultMap="secondHandCarResultMap">
+    <select id="getSecondHandCars" resultMap="secondHandCarResultMap">
         SELECT
             car.title,
             car.license_date,

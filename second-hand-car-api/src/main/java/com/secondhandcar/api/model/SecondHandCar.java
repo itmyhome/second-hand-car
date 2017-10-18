@@ -1,15 +1,14 @@
 package com.secondhandcar.api.model;
 
 import com.baomidou.mybatisplus.activerecord.Model;
-import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 /**
  * 二手车
@@ -39,19 +38,17 @@ public class SecondHandCar extends Model<SecondHandCar> implements Serializable{
     /**
      * 上牌日期
      */
-    @TableField("license_date")
-    private String licenseDate;
+    @DateTimeFormat(pattern = "yyyy-mm-dd")
+    private Date licenseDate;
 
     /**
      * 行驶里程
      */
-    @TableField("road_haul")
     private String roadHaul;
 
     /**
      * 缩略图
      */
-    @TableField("thumb_img")
     private String thumbImg;
 
     /**
@@ -62,19 +59,17 @@ public class SecondHandCar extends Model<SecondHandCar> implements Serializable{
     /**
      * 首付
      */
-    @TableField("first_pay")
     private String firstPay;
 
     /**
      * 是否新上架
      */
-    @TableField("new_post")
     private String newPost;
 
     /**
      * 热门属性
      */
-    private transient List<SecondHandCarHotParam> secondHandCarHotParamList;
+    private transient String secondHandCarHotParamStr;
 
     /**
      * 版本（乐观锁保留字段）
@@ -84,9 +79,7 @@ public class SecondHandCar extends Model<SecondHandCar> implements Serializable{
      * 排序
      */
     private Integer orderNo;
-
     private Date createTime;
-
     private Date updateTime;
 
     @Override
