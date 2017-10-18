@@ -9,6 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 二手车
@@ -69,7 +70,7 @@ public class SecondHandCar extends Model<SecondHandCar> implements Serializable{
     /**
      * 热门属性
      */
-    private transient String secondHandCarHotParamStr;
+    private List<SecondHandCarHotParam> secondHandCarHotParamList;
 
     /**
      * 版本（乐观锁保留字段）
