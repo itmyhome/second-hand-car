@@ -8,9 +8,5 @@ import java.util.List;
 
 @Mapper
 public interface SecondHandCarDao extends BaseMapper<SecondHandCar>{
-    /**
-     * 二手车列表
-     * @return
-     */
-    public List<SecondHandCar> findSecondHandCarList();
+    List<SecondHandCar> getSecondHandCars();
 }
