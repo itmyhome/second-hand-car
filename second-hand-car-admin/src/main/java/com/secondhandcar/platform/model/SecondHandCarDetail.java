@@ -101,7 +101,7 @@ public class SecondHandCarDetail extends Model<SecondHandCar> implements Seriali
     /**
      *高配属性项目
      */
-    private String highlight_config_item;
+    private String highlightConfigItem;
     /**
      *合格证图标
      */
@@ -113,7 +113,7 @@ public class SecondHandCarDetail extends Model<SecondHandCar> implements Seriali
     /**
      *检测详细项目
      */
-    private String evaluate_items;
+    private String evaluateItem;
     /**
      *
      */
