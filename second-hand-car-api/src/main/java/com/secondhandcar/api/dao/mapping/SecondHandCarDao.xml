@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.secondhandcar.api.dao.SecondHandCarDao">
-    <resultMap id="secondHandCarResultMap" type="com.secondhandcar.api.model.SecondHandCar">
-        <result property="id" column="id"></result>
-        <result property="carId" column="car_id"></result>
+    <resultMap id="secondHandCarResultMap" type="com.secondhandcar.api.dto.SecondHandCarResponseDTO">
         <result property="title" column="title"></result>
         <result property="licenseDate" column="license_date"></result>
         <result property="roadHaul" column="road_haul"></result>
@@ -11,27 +9,17 @@
         <result property="price" column="price"></result>
         <result property="firstPay" column="first_pay"></result>
         <result property="newPost" column="new_post"></result>
-        <result property="version" column="version"></result>
-        <result property="orderNo" column="order_no"></result>
-        <result property="createTime" column="create_time"></result>
-        <result property="updateTime" column="update_time"></result>
-        <collection property="secondHandCarHotParamList" resultMap="secondHandCarHotParamResultMap"></collection>
+        <collection property="hotParams" resultMap="secondHandCarHotParamResultMap"></collection>
     </resultMap>
     
-    <resultMap id="secondHandCarHotParamResultMap" type="com.secondhandcar.api.model.SecondHandCarHotParam">
-        <result property="id" column="id" ></result>
-        <result property="cardId" column="car_id" ></result>
+    <resultMap id="secondHandCarHotParamResultMap" type="com.secondhandcar.api.dto.SecondHandCarHotParamResponseDTO">
         <result property="text" column="text" ></result>
         <result property="color" column="color" ></result>
-        <result property="createTime" column="create_time" ></result>
-        <result property="updateTime" column="update_time" ></result>
     </resultMap>
 
     <!-- 查询二手车列表 -->
-    <select id="getSecondHandCars" resultMap="secondHandCarResultMap">
+    <select id="findSecondHandCars" resultMap="secondHandCarResultMap">
         SELECT
-            car.id,
-            car.car_id,
             car.title,
             car.license_date,
             car.road_haul,

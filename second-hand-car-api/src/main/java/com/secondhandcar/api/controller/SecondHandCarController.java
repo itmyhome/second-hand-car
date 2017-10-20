@@ -1,10 +1,10 @@
 package com.secondhandcar.api.controller;
 
+import com.secondhandcar.api.dto.SecondHandCarResponseDTO;
 import com.secondhandcar.api.model.SecondHandCar;
 import com.secondhandcar.api.service.SecondHandCarService;
 import com.secondhandcar.core.controller.BaseController;
 import com.secondhandcar.core.utils.ResultBuilderUtil;
-import com.secondhandcar.core.utils.ReturnResult;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -27,21 +27,21 @@ public class SecondHandCarController extends BaseController{
      * 获取二手车列表
      * @return
      */
-    @RequestMapping(value = "/list")
+    @RequestMapping(value = "/findSecondHandCar")
     @ResponseBody
-    public Object getSecondHandCars(String condition){
-        List<SecondHandCar> carList = secondHandCarService.getSecondHandCars();
-        return ResultBuilderUtil.success(carList);
+    public Object findSecondHandCars(String condition){
+        List<SecondHandCarResponseDTO> response = secondHandCarService.findSecondHandCars();
+        return ResultBuilderUtil.success(response);
     }
 
     /**
      * 获取二手车详情信息
-     * @param carId
+     * @param secondHandCar
      * @return
      */
     @RequestMapping(value="/detail")
     @ResponseBody
-    public Object getSecondHandCarDetail(String carId){
+    public Object findSecondHandCarDetail(SecondHandCar secondHandCar){
         return null;
     }
 
@@ -52,7 +52,7 @@ public class SecondHandCarController extends BaseController{
      */
     @RequestMapping(value="/config")
     @ResponseBody
-    public Object getSecondHandCarConfig(String carId){
+    public Object findSecondHandCarConfig(String carId){
         return null;
     }
 
