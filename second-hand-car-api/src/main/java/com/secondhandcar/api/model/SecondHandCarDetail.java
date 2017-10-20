@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.activerecord.Model;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by xiet on 2017/10/14.
@@ -101,7 +102,7 @@ public class SecondHandCarDetail extends Model<SecondHandCar> implements Seriali
     /**
      *高配属性项目
      */
-    private String highlightConfigItem;
+    private List<SecondHandCarHighlightConfigItem> highlightConfigItem;
     /**
      *合格证图标
      */
@@ -113,7 +114,7 @@ public class SecondHandCarDetail extends Model<SecondHandCar> implements Seriali
     /**
      *检测详细项目
      */
-    private String evaluateItem;
+    private List<SecondHandCarEvaluateItem> evaluateItem;
     /**
      *
      */
