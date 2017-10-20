@@ -18,127 +18,127 @@ public class SecondHandCarDetail extends Model<SecondHandCar> implements Seriali
      */
     private String carId;
     /**
-     *排放量
+     * 排放量
      */
-    private String air_displacement;
+    private String airDisplacement;
     /**
-     *变速箱类型
+     * 变速箱类型
      */
     private String gearbox;
     /**
-     *售卖者
+     * 售卖者
      */
     private String seller;
     /**
-     *售卖者职业
+     * 售卖者职业
      */
-    private String seller_job;
+    private String sellerJob;
     /**
-     *过户次数
+     * 过户次数
      */
-    private String transfer_num;
+    private String transferNum;
     /**
-     *车牌所在地
+     * 车牌所在地
      */
-    private String card_city;
+    private String cardCity;
     /**
-     *所在区名
+     * 所在区名
      */
-    private String district_name;
+    private String districtName;
     /**
-     *卖家描述
+     * 卖家描述
      */
-    private String seller_description;
+    private String sellerDescription;
     /**
-     *年检到期描述
+     * 年检到期描述
      */
-    private String audit_date;
+    private String auditDate;
     /**
-     *交强险到期描述
+     * 交强险到期描述
      */
-    private String strong_insurance_date;
+    private String strongInsuranceDate;
     /**
-     *商业险到期描述
+     * 商业险到期描述
      */
-    private String insurance_date;
+    private String insuranceDate;
+    /**
+     * 折让价
+     */
+    private String dealPrice;
     /**
      *
      */
-    private String deal_price;
-    /**
-     *
-     */
-    private String service_charge;
+    private transient String serviceCharge;
 
     /**
      * 新车价格
      */
-    private String new_price;
+    private String newPrice;
 
     /**
      * 使用年限
      */
-    private String use_date;
+    private String useDate;
 
     /**
      * 关注人数
      */
-    private String follow_num;
+    private String followNum;
 
     /**
      * 排放标准
      */
-    private String emission_standard;
+    private String emissionStandard;
 
     /**
-     *排放标准提示
+     * 排放标准提示
      */
-    private String emission_standard_desc;
+    private String emissionStandardDesc;
     /**
-     *排放标准提示h5 url
+     * 排放标准提示h5 url
      */
-    private String emissions_standards_url;
+    private String emissionStandardsUrl;
     /**
-     *高配属性项目
+     * 高配属性项目
      */
-    private String highlightConfigItem;
+    private transient String highlightConfigItem;
     /**
-     *合格证图标
+     * 合格证图标
      */
-    private String hege_icon;
+    private String hegeIcon;
     /**
-     *检测描述
+     * 检测描述
      */
-    private String evaluator_desc;
+    private String evaluatorDesc;
     /**
-     *检测详细项目
+     * 检测详细项目
      */
-    private String evaluateItem;
-    /**
-     *
-     */
-    private String service;
+    private transient String evaluateItem;
     /**
      *
      */
-    private String service_desc;
+    private transient String service;
+    /**
+     *
+     */
+    private transient String serviceDesc;
 
     /**
      * 最高赔付额
      */
-    private String compensation_amount;
+    private transient String compensationAmount;
     /**
      *
      */
-    private String imageList;
+    private transient String imageList;
     /**
-     *
+     * 联系电话
      */
     private String phone;
     /**
      *
      */
-    private String imageCategoryList;
+    private transient String imageCategoryList;
 
 
     @Override

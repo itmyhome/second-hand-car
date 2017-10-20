@@ -63,6 +63,30 @@ DROP TABLE IF EXISTS `second_hand_car_detail`;
 
 CREATE TABLE `second_hand_car_detail` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `car_id` varchar(25) NOT NULL DEFAULT '' COMMENT '二手车表中的cardId',
+  `air_displacement` varchar(10) NOT NULL DEFAULT '' COMMENT '排放量',
+  `gearbox` varchar(10) NOT NULL DEFAULT '' COMMENT '变速箱类型',
+  `seller` varchar(10) NOT NULL DEFAULT '' COMMENT '售卖者',
+  `seller_job` varchar(10) NOT NULL DEFAULT '' COMMENT '售卖者职业',
+  `transfer_num` varchar(10) NOT NULL DEFAULT '' COMMENT '过户次数',
+  `card_city` varchar(10) NOT NULL DEFAULT '' COMMENT '车牌所在地',
+  `district_name` varchar(10) NOT NULL DEFAULT '' COMMENT '所在区名',
+  `seller_description` varchar(512) NOT NULL DEFAULT '' COMMENT '卖家描述',
+  `audit_date` varchar(10) NOT NULL DEFAULT '' COMMENT '年检到期描述',
+  `strong_insurance_date` varchar(10) NOT NULL DEFAULT '' COMMENT '交强险到期描述',
+  `insurance_date` varchar(10) NOT NULL DEFAULT '' COMMENT '商业险到期描述',
+  `deal_price` varchar(10) NOT NULL DEFAULT '' COMMENT '折让价',
+  `new_price` varchar(10) NOT NULL DEFAULT '' COMMENT '新车价格',
+  `use_date` varchar(10) NOT NULL DEFAULT '' COMMENT '使用年限',
+  `follow_num` varchar(10) NOT NULL DEFAULT '' COMMENT '关注人数',
+  `emission_standard` varchar(10) NOT NULL DEFAULT '' COMMENT '排放标准',
+  `emission_standard_desc` varchar(128) NOT NULL DEFAULT '' COMMENT '排放标准提示',
+  `emission_standards_url` varchar(512) NOT NULL DEFAULT '' COMMENT '排放标准提示h5 url',
+  `hege_icon` varchar(128) NOT NULL DEFAULT '' COMMENT '合格证图标',
+  `evaluator_desc` varchar(512) NOT NULL DEFAULT '' COMMENT '检测描述',
+  `phone` varchar(10) NOT NULL DEFAULT '' COMMENT '联系电话',
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='二手车详情表';
 
@@ -82,6 +106,9 @@ CREATE TABLE `second_hand_car_hot_param` (
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='二手车热门属性表';
+
+
+
 
 
 

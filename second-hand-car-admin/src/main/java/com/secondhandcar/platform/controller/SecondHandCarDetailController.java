@@ -33,7 +33,9 @@ public class SecondHandCarDetailController extends BaseController{
     @RequestMapping("/secondHandCarDetail_edit/{id}")
     public String secondHandCarDetailEdit(@PathVariable Integer id, Model model) {
         SecondHandCar secondHandCar = secondHandCarService.selectById(id);
+        SecondHandCarDetail secondHandCarDetail = secondHandCarDetailService.selectById(id);
         model.addAttribute("secondHandCar", secondHandCar);
+        model.addAttribute("secondHandCarDetail", secondHandCarDetail);
 
         return PREFIX + "secondHandCarDetail_edit.html";
     }
@@ -44,6 +46,11 @@ public class SecondHandCarDetailController extends BaseController{
     @RequestMapping(value = "/update")
     @ResponseBody
     public Object update(SecondHandCarDetail secondHandCarDetail) {
+
+
+        secondHandCarDetailService.update(secondHandCarDetail);
+
+
 //        secondHandCarService.update(secondHandCar);
         return super.SUCCESS_TIP;
     }

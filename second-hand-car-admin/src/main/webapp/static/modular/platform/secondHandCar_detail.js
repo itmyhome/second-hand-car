@@ -5,21 +5,42 @@
  * 初始化二手车详情对话框
  */
 var SecondHandCarInfoDlg = {
-    count: $("#itemSize").val(),
+    evaluateItemCount: $("#evaluateItemSize").val(),
+    highLightConfigItemCount: $("#highLightConfigItemSize").val(),
+    thumbImgCount: $("#thumbSize").val(),
     secondHandCarInfoData: {},
-    itemTemplate: $("#itemTemplate").html()
+    itemTemplate: $("#evaluateItem").html(),
+    highLightConfigItem: $("#highLightConfigItem").html()
 };
 
 /**
  * item获取新的id
  */
-SecondHandCarInfoDlg.newId = function () {
-    if(this.count == undefined){
-        this.count = 0;
+SecondHandCarInfoDlg.newEvaluateItemId = function () {
+    if(this.evaluateItemCount == undefined){
+        this.evaluateItemCount = 0;
     }
-    this.count = this.count + 1;
-    return "secondHandCarHotParam" + this.count;
+    this.evaluateItemCount = this.evaluateItemCount + 1;
+    return "secondHandCarEvaluateItem" + this.evaluateItemCount;
 };
+
+SecondHandCarInfoDlg.newHighLightConfigItemId = function () {
+    if(this.highLightConfigItemCount == undefined){
+        this.highLightConfigItemCount = 0;
+    }
+    this.highLightConfigItemCount = this.highLightConfigItemCount + 1;
+    return "secondHandCarHighLightConfigItem" + this.highLightConfigItemCount;
+}
+
+SecondHandCarInfoDlg.newThumbImgId = function () {
+    if(this.thumbImgCount == undefined){
+        this.thumbImgCount = 0;
+    }
+    this.thumbImgCount = this.thumbImgCount + 1;
+    return "image" + this.thumbImgCount;
+}
+
+
 
 /**
  * 清除数据
@@ -57,11 +78,28 @@ SecondHandCarInfoDlg.close = function () {
 }
 
 /**
- * 添加条目
+ * 添加详细检测条目
  */
-SecondHandCarInfoDlg.addItem = function () {
+SecondHandCarInfoDlg.addSecondHandCarEvaluateItems = function () {
     $("#itemsArea").append(this.itemTemplate);
-    $("#secondHandCarHotParam").attr("id", this.newId());
+    $("#secondHandCarEvaluateItems").attr("id", this.newEvaluateItemId());
+};
+
+/**
+ * 添加高亮配置条目
+ */
+SecondHandCarInfoDlg.addSecondHandCarHighlightConfigItem = function () {
+    $("#driverInfoContent").append(this.highLightConfigItem);
+    $("#secondHandCarHighlightConfigItem").attr("id", this.newHighLightConfigItemId());
+
+    var thumbImgStr = this.newThumbImgId();
+
+    $("#imageBtnId").attr("id", thumbImgStr + "BtnId");
+    $("#imagePreId").attr("id", thumbImgStr + "PreId");
+    $("#image").attr("id", thumbImgStr);
+    var avatarUp = new $WebUpload(thumbImgStr);
+    avatarUp.setUploadBarId("progressBar");
+    avatarUp.init();
 };
 
 /**
@@ -76,10 +114,19 @@ SecondHandCarInfoDlg.deleteItem = function (event) {
  * 清除为空的item Dom
  */
 SecondHandCarInfoDlg.clearNullDom = function(){
-    $("[name='secondHandCarHotParam']").each(function(){
-        var text = $(this).find("[name='text']").val();
-        var color = $(this).find("[name='color']").val();
-        if(text == '' || color == ''){
+    $("[name='secondHandCarEvaluateItem']").each(function(){
+        var title = $(this).find("[name='title']").val();
+        var count = $(this).find("[name='count']").val();
+        var faile = $(this).find("[name='faile']").val();
+        if(title == '' || count == '' || faile == ''){
+            $(this).remove();
+        }
+    });
+    $("[name='secondHandCarHighlightConfigItem']").each(function(){
+        var title = $(this).find("[name='title']").val();
+        var image = $(this).find("[name='image']").val();
+        var isAdd = $(this).find("[name='isAdd']").val();
+        if(title == '' || image == '' || isAdd == ''){
             $(this).remove();
         }
     });
@@ -91,17 +138,31 @@ SecondHandCarInfoDlg.clearNullDom = function(){
 SecondHandCarInfoDlg.collectData = function () {
     this.clearNullDom();
 
-    this.set('id').set('carId').set('title').set('licenseDate').set('roadHaul').set('price')
-        .set('firstPay').set('newPost').set('orderNo').set('thumbImg');
+    this.set('id').set('carId').set('airDisplacement').set('gearbox').set('seller').set('sellerJob')
+        .set('transferNum').set('cardCity').set('districtName').set('sellerDescription')
+        .set('auditDate').set('strongInsuranceDate').set('insuranceDate').set('dealPrice')
+        .set('newPrice').set('useDate').set('followNum').set('emissionStandard')
+        .set('emissionStandardDesc').set('emissionStandardsUrl').set('hegeIcon').set('evaluatorDesc').set('phone');
 
-    var multiString = "";
-    $("[name='secondHandCarHotParam']").each(function(){
-        var text = $(this).find("[name='text']").val();
-        var color = $(this).find("[name='color']").val();
-        multiString = multiString + (text + ":" + color + ";");
+    var evaluateItem = "";
+    $("[name='secondHandCarEvaluateItem']").each(function(){
+        var title = $(this).find("[name='title']").val();
+        var count = $(this).find("[name='count']").val();
+        var faile = $(this).find("[name='faile']").val();
+        evaluateItem = evaluateItem + (title + ":" + count + ":" + faile + ";");
     });
 
-    this.set('secondHandCarHotParamStr', multiString);
+    this.set('evaluateItem', evaluateItem);
+
+    var highlightConfigItem = "";
+    $("[name='secondHandCarHighlightConfigItem']").each(function(){
+        var title = $(this).find("[name='title']").val();
+        var image = $(this).find("input[id^='image']").val();
+        var isAdd = $(this).find("[name='isAdd']").val();
+        highlightConfigItem = highlightConfigItem + (title + ":" + image + ":" + isAdd + ";");
+    });
+
+    this.set('highlightConfigItem', highlightConfigItem);
 
 }
 
@@ -112,6 +173,8 @@ SecondHandCarInfoDlg.addSubmit = function () {
 
     this.clearData();
     this.collectData();
+
+
 
     //提交信息
     var ajax = new $ax(SecondHandCarAdmin.ctxPath + "/secondHandCar/add", function (data) {
@@ -133,10 +196,12 @@ SecondHandCarInfoDlg.editSubmit = function () {
     this.clearData();
     this.collectData();
 
+    console.info(this.secondHandCarInfoData)
+
     //提交信息
-    var ajax = new $ax(SecondHandCarAdmin.ctxPath + "/secondHandCar/update", function (data) {
+    var ajax = new $ax(SecondHandCarAdmin.ctxPath + "/secondHandCarDetail/update", function (data) {
         SecondHandCarAdmin.success("修改成功!");
-        window.parent.SecondHandCar.table.refresh();
+        // window.parent.SecondHandCar.table.refresh();
         SecondHandCarInfoDlg.close();
     }, function (data) {
         SecondHandCarAdmin.error("修改失败!" + data.responseJSON.message + "!");
@@ -147,8 +212,8 @@ SecondHandCarInfoDlg.editSubmit = function () {
 
 $(function () {
     // 初始化头像上传
-    var avatarUp = new $WebUpload("thumbImg");
-    avatarUp.setUploadBarId("progressBar");
-    avatarUp.init();
+    // var avatarUp = new $WebUpload("thumbImg");
+    // avatarUp.setUploadBarId("progressBar");
+    // avatarUp.init();
 });
 

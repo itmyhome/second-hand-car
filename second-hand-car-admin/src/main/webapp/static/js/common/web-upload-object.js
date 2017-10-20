@@ -70,7 +70,6 @@
 				// 生成缩略图
 				bindedObj.makeThumb(file, function(error, src) {
 					if (error) {
-						console.info(error)
 						$img.replaceWith('<span>不能预览</span>');
 						return;
 					}
