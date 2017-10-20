@@ -36,16 +36,17 @@ public class SecondHandCarDetailServiceImpl implements SecondHandCarDetailServic
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = RuntimeException.class)
     public void update(SecondHandCarDetail secondHandCarDetail) {
         if(secondHandCarDetail.getId() == null){
             secondHandCarDetailDao.insert(secondHandCarDetail);
         }else{
+            //不为空才去删除
             secondHandCarDetailDao.updateById(secondHandCarDetail);
+            String carId = secondHandCarDetail.getCarId();
+            deleteEvaluateItemsByCarId(carId);
+            deleteHighlightConfigItem(carId);
         }
-        String carId = secondHandCarDetail.getCarId();
-        deleteEvaluateItemsByCarId(carId);
-        deleteHighlightConfigItem(carId);
         insertSecondHandCarEvaluatrItems(secondHandCarDetail);
         insertSecondHandCarHighlightConfigItem(secondHandCarDetail);
     }
@@ -60,6 +61,7 @@ public class SecondHandCarDetailServiceImpl implements SecondHandCarDetailServic
             String faile = item.get(DictUtils.MUTI_STR_VALUE);
             SecondHandCarEvaluateItem secondHandCarEvaluateItem = new SecondHandCarEvaluateItem();
 
+            secondHandCarEvaluateItem.setCarId(secondHandCarDetail.getCarId());
             secondHandCarEvaluateItem.setTitle(title);
             secondHandCarEvaluateItem.setCount(Integer.parseInt(count));
             secondHandCarEvaluateItem.setFaile(Integer.parseInt(faile));
@@ -77,6 +79,7 @@ public class SecondHandCarDetailServiceImpl implements SecondHandCarDetailServic
             String isAdd = item.get(DictUtils.MUTI_STR_VALUE);
             SecondHandCarHighlightConfigItem secondHandCarHighlightConfigItem = new SecondHandCarHighlightConfigItem();
 
+            secondHandCarHighlightConfigItem.setCarId(secondHandCarDetail.getCarId());
             secondHandCarHighlightConfigItem.setTitle(title);
             secondHandCarHighlightConfigItem.setImage(image);
             secondHandCarHighlightConfigItem.setAdd(isAdd.equals("1") ? true : false );

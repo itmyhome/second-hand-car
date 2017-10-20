@@ -11,6 +11,10 @@ public interface SecondHandCarDetailService {
 
     void add(SecondHandCarDetail secondHandCarDetail);
 
+    /**
+     * 更新二手车详情表，二手车详细配置表，二手车高配属性表
+     * @param secondHandCarDetail
+     */
     void update(SecondHandCarDetail secondHandCarDetail);
 
     SecondHandCarDetail selectById(Integer id);

@@ -1,6 +1,8 @@
 package com.secondhandcar.platform.model;
 
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.enums.IdType;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -12,7 +14,7 @@ import java.util.Date;
  */
 @Data
 public class SecondHandCarHighlightConfigItem extends Model<SecondHandCarHighlightConfigItem> implements Serializable {
-
+    @TableId(value="id", type= IdType.AUTO)
     private Integer id;
     /**
      * 二手车表中的carId
