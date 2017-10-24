@@ -1,5 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.secondhandcar.api.dao.SecondHandCarDetailDao">
+    <resultMap id="secondHandCarDetailResultMap" type="com.secondhandcar.api.dto.SecondHandCarDetailResponseDTO">
+        <result property="id" column="id"></result>
+        <result property="carId" column="car_id"></result>
+        <result property="airDisplacement" column="air_displacement"></result>
+        <result property="gearbox" column="gearbox"></result>
+        <result property="seller" column="seller"></result>
+        <result property="sellerJob" column="seller_job"></result>
+        <result property="transferNum" column="transfer_num"></result>
+        <result property="cardCity" column="card_city"></result>
+        <result property="districtName" column="district_name"></result>
+        <result property="sellerDescription" column="seller_description"></result>
+        <result property="auditDate" column="audit_date"></result>
+        <result property="strongInsuranceDate" column="strong_insurance_date"></result>
+        <result property="insuranceDate" column="insurance_date"></result>
+        <result property="dealPrice" column="deal_price"></result>
+        <result property="newPrice" column="new_price"></result>
+        <result property="useDate" column="use_date"></result>
+        <result property="followNum" column="follow_num"></result>
+        <result property="emissionStandard" column="emission_standard"></result>
+        <result property="emissionStandardDesc" column="emission_standard_desc"></result>
+        <result property="emissionStandardsUrl" column="emission_standards_url"></result>
+        <result property="hegeIcon" column="hege_icon"></result>
+        <result property="evaluatorDesc" column="evaluator_desc"></result>
+        <result property="phone" column="phone"></result>
+        <collection property="evaluateItemResponse" resultMap="secondHandCarEvaluateItemResultMap"></collection>
+        <collection property="highlightConfigItemResponse" resultMap="highlightConfigItemResultMap"></collection>
+    </resultMap>
+
+    <resultMap id="secondHandCarEvaluateItemResultMap" type="com.secondhandcar.api.dto.SecondHandCarEvaluateItemResponseDTO">
+        <result property="title" column="title"></result>
+        <result property="count" column="count"></result>
+        <result property="faile" column="faile"></result>
+        <result property="url" column="url"></result>
+        <result property="icon" column="icon"></result>
+    </resultMap>
+
+    <resultMap id="highlightConfigItemResultMap" type="com.secondhandcar.api.dto.SecondHandCarHighlightConfigItemResponseDTO">
+        <result property="title" column="title"></result>
+        <result property="image" column="image"></result>
+    </resultMap>
+
+    <!-- 二手车详情 -->
+    <select id="findSecondHandCarDetail" resultMap="secondHandCarDetailResultMap" parameterType="java.lang.String">
+        SELECT
+            d.id,
+            d.car_id,
+            d.air_displacement,
+            d.gearbox,
+            d.seller,
+            d.seller_job,
+            d.transfer_num,
+            d.card_city,
+            d.district_name,
+            d.seller_description,
+            d.audit_date,
+            d.strong_insurance_date,
+            d.insurance_date,
+            d.deal_Price,
+            d.new_price,
+            d.use_date,
+            d.follow_num,
+            d.emission_standard,
+            d.emission_standard_desc,
+            d.emission_standards_url,
+            d.hege_icon,
+            d.evaluator_desc,
+            d.phone,
+            i.title,
+            i.count,
+            i.faile,
+            i.url,
+            i.icon,
+            h.title,
+            h.image,
+            h.is_add
+        FROM second_hand_car_detail d
+        LEFT JOIN second_hand_car_evaluate_item i ON d.car_id = i.car_id
+        LEFT JOIN second_hand_car_highlight_config_item H ON d.car_id = h.car_id
+        WHERE d.car_id = #{carId}
+    </select>
 
 </mapper>

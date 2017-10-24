@@ -1,8 +1,5 @@
-package com.secondhandcar.api.model;
+package com.secondhandcar.api.dto;
 
-import com.baomidou.mybatisplus.activerecord.Model;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.enums.IdType;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -12,10 +9,8 @@ import java.util.List;
  * Created by xiet on 2017/10/14.
  */
 @Data
-public class SecondHandCarDetail extends Model<SecondHandCar> implements Serializable {
+public class SecondHandCarDetailResponseDTO implements Serializable {
 
-
-    @TableId(value="id", type= IdType.AUTO)
     private Integer id;
     /**
      * 二手车表中的carId
@@ -105,7 +100,7 @@ public class SecondHandCarDetail extends Model<SecondHandCar> implements Seriali
     /**
      * 高配属性项目
      */
-    private List<SecondHandCarHighlightConfigItem> highlightConfigItem;
+    private List<SecondHandCarHighlightConfigItemResponseDTO> highlightConfigItemResponse;
     /**
      * 合格证图标
      */
@@ -117,7 +112,7 @@ public class SecondHandCarDetail extends Model<SecondHandCar> implements Seriali
     /**
      * 检测详细项目
      */
-    private List<SecondHandCarEvaluateItem> evaluateItem;
+    private List<SecondHandCarEvaluateItemResponseDTO> evaluateItemResponse;
     /**
      *
      */
@@ -144,9 +139,4 @@ public class SecondHandCarDetail extends Model<SecondHandCar> implements Seriali
      */
     private transient String imageCategoryList;
 
-
-    @Override
-    protected Serializable pkVal() {
-        return id;
-    }
 }
