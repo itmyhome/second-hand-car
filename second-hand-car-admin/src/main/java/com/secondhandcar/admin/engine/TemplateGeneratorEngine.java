@@ -2,7 +2,6 @@ package com.secondhandcar.admin.engine;
 
 import com.secondhandcar.admin.config.*;
 import com.secondhandcar.core.utils.ToolUtil;
-import com.sun.javafx.PlatformUtil;
 import org.beetl.core.Configuration;
 import org.beetl.core.GroupTemplate;
 import org.beetl.core.Template;
@@ -119,24 +118,24 @@ public abstract class TemplateGeneratorEngine {
         groupTemplate.registerFunctionPackage("tool", new ToolUtil());
     }
 
-    public void configTemplate(Template template){
+    public void configTemplate(Template template) {
         template.binding("controller", getControllerConfig());
         template.binding("context", getContextConfig());
         template.binding("dao", getDaoConfig());
         template.binding("service", getServiceConfig());
     }
 
-    public void generateFile(String template,String filePath){
+    public void generateFile(String template, String filePath) {
         Template pageTemplate = groupTemplate.getTemplate(template);
         configTemplate(pageTemplate);
-        if(PlatformUtil.isWindows()){
-            filePath = filePath.replaceAll("/+|\\\\+","\\\\");
-        }else{
-            filePath = filePath.replaceAll("/+|\\\\+","/");
-        }
+        //if(PlatformUtil.isWindows()){
+        //filePath = filePath.replaceAll("/+|\\\\+","\\\\");
+        //}else{
+        filePath = filePath.replaceAll("/+|\\\\+", "/");
+//        }
         File file = new File(filePath);
         File parentFile = file.getParentFile();
-        if(!parentFile.exists()){
+        if (!parentFile.exists()) {
             parentFile.mkdirs();
         }
         try {
@@ -151,28 +150,28 @@ public abstract class TemplateGeneratorEngine {
         initConfig();
 
         //生成模板
-        if(contextConfig.getControllerSwitch()){
+        if (contextConfig.getControllerSwitch()) {
             generateController();
         }
-        if(contextConfig.getIndexPageSwitch()){
+        if (contextConfig.getIndexPageSwitch()) {
             generatePageHtml();
         }
-        if(contextConfig.getAddPageSwitch()){
+        if (contextConfig.getAddPageSwitch()) {
             generatePageAddHtml();
         }
-        if(contextConfig.getEditPageSwitch()){
+        if (contextConfig.getEditPageSwitch()) {
             generatePageEditHtml();
         }
-        if(contextConfig.getJsSwitch()){
+        if (contextConfig.getJsSwitch()) {
             generatePageJs();
         }
-        if(contextConfig.getInfoJsSwitch()){
+        if (contextConfig.getInfoJsSwitch()) {
             generatePageInfoJs();
         }
-        if(contextConfig.getDaoSwitch()){
+        if (contextConfig.getDaoSwitch()) {
             generateDao();
         }
-        if(contextConfig.getServiceSwitch()){
+        if (contextConfig.getServiceSwitch()) {
             generateService();
         }
 
