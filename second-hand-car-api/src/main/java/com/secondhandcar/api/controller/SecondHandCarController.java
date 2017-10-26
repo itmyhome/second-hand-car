@@ -1,7 +1,9 @@
 package com.secondhandcar.api.controller;
 
+import com.secondhandcar.api.dto.SecondHandCarDetailResponseDTO;
 import com.secondhandcar.api.dto.SecondHandCarResponseDTO;
 import com.secondhandcar.api.model.SecondHandCar;
+import com.secondhandcar.api.service.SecondHandCarDetailService;
 import com.secondhandcar.api.service.SecondHandCarService;
 import com.secondhandcar.core.controller.BaseController;
 import com.secondhandcar.core.utils.ResultBuilderUtil;
@@ -23,6 +25,9 @@ public class SecondHandCarController extends BaseController{
     @Resource
     private SecondHandCarService secondHandCarService;
 
+    @Resource
+    private SecondHandCarDetailService secondHandCarDetailService;
+
     /**
      * 获取二手车列表
      * @return
@@ -36,13 +41,14 @@ public class SecondHandCarController extends BaseController{
 
     /**
      * 获取二手车详情信息
-     * @param secondHandCar
+     * @param carId
      * @return
      */
     @RequestMapping(value="/detail")
     @ResponseBody
-    public Object findSecondHandCarDetail(SecondHandCar secondHandCar){
-        return null;
+    public Object findSecondHandCarDetail(String carId){
+        SecondHandCarDetailResponseDTO response = secondHandCarDetailService.findSecondHandCarDetail(carId);
+        return ResultBuilderUtil.success(response);
     }
 
     /**

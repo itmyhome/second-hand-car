@@ -1,6 +1,7 @@
 package com.secondhandcar.api.dao;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.secondhandcar.api.dto.SecondHandCarDetailResponseDTO;
 import com.secondhandcar.api.model.SecondHandCarDetail;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -14,5 +15,5 @@ public interface SecondHandCarDetailDao extends BaseMapper<SecondHandCarDetail> 
      * @param carId
      * @return
      */
-    SecondHandCarDetail findSecondHandCarDetail(String carId);
+    SecondHandCarDetailResponseDTO findSecondHandCarDetail(String carId);
 }
