@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.codec.Base64;
-import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -15,7 +14,6 @@ import org.apache.shiro.web.servlet.Cookie;
 import org.apache.shiro.web.servlet.ShiroHttpSession;
 import org.apache.shiro.web.servlet.SimpleCookie;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
-import org.apache.shiro.web.session.mgt.ServletContainerSessionManager;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.cache.ehcache.EhCacheManagerFactoryBean;
 import org.springframework.context.annotation.Bean;
@@ -32,7 +30,7 @@ public class ShiroConfig {
      * 安全管理器
      */
     @Bean(name = "securityManager")
-    public DefaultWebSecurityManager securityManager(SessionManager sessionManager) {
+    public DefaultWebSecurityManager securityManager(DefaultWebSessionManager sessionManager) {
         log.info("初始化安全管理器");
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(this.shiroRealm());
@@ -45,17 +43,17 @@ public class ShiroConfig {
     /**
      * spring session管理器（多机环境）
      */
-    @Bean
-    @ConditionalOnProperty(prefix = "shiroConfig", name = "spring-session-open", havingValue = "true")
-    public ServletContainerSessionManager servletContainerSessionManager() {
-        log.info("初始化session管理器 多机环境");
-        return new ServletContainerSessionManager();
-    }
+//    @Bean
+//    @ConditionalOnProperty(prefix = "shiroConfig", name = "spring-session-open", havingValue = "true")
+//    public ServletContainerSessionManager servletContainerSessionManager() {
+//        log.info("初始化session管理器 多机环境");
+//        return new ServletContainerSessionManager();
+//    }
 
     /**
      * session管理器(单机环境)
      */
-    @Bean
+    @Bean(name = "defaultWebSessionManager")
     @ConditionalOnProperty(prefix = "shiroConfig", name = "spring-session-open", havingValue = "false")
     public DefaultWebSessionManager defaultWebSessionManager() {
         log.info("初始化session管理器 单机环境");
