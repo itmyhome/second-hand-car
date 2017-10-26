@@ -1,7 +1,6 @@
 package com.secondhandcar.admin.config;
 
 import com.secondhandcar.admin.realm.ShiroRealm;
-import com.secondhandcar.admin.utils.SpringContextHolder;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
@@ -17,7 +16,6 @@ import org.apache.shiro.web.servlet.ShiroHttpSession;
 import org.apache.shiro.web.servlet.SimpleCookie;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.apache.shiro.web.session.mgt.ServletContainerSessionManager;
-import org.springframework.beans.factory.config.MethodInvokingFactoryBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.cache.ehcache.EhCacheManagerFactoryBean;
 import org.springframework.context.annotation.Bean;
@@ -34,13 +32,13 @@ public class ShiroConfig {
      * 安全管理器
      */
     @Bean(name = "securityManager")
-    public DefaultWebSecurityManager securityManager() {
+    public DefaultWebSecurityManager securityManager(SessionManager sessionManager) {
         log.info("初始化安全管理器");
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(this.shiroRealm());
 //        securityManager.setCacheManager(this.getCacheShiroManager(SpringContextHolder.getBean(EhCacheManagerFactoryBean.class)));
 //        securityManager.setRememberMeManager(this.rememberMeManager());
-        securityManager.setSessionManager(this.defaultWebSessionManager());
+        securityManager.setSessionManager(sessionManager);
         return securityManager;
     }
 
@@ -124,7 +122,7 @@ public class ShiroConfig {
     public ShiroFilterFactoryBean shiroFilter() {
         log.info("初始化Shiro的过滤器链");
         ShiroFilterFactoryBean shiroFilter = new ShiroFilterFactoryBean();
-        shiroFilter.setSecurityManager(this.securityManager());
+        shiroFilter.setSecurityManager(this.securityManager(this.defaultWebSessionManager()));
         /**
          * 默认的登陆访问url
          */
