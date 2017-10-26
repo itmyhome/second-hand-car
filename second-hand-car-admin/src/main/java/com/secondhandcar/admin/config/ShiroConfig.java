@@ -117,10 +117,10 @@ public class ShiroConfig {
      * Shiro的过滤器链
      */
     @Bean
-    public ShiroFilterFactoryBean shiroFilter() {
+    public ShiroFilterFactoryBean shiroFilter(DefaultWebSecurityManager securityManager) {
         log.info("初始化Shiro的过滤器链");
         ShiroFilterFactoryBean shiroFilter = new ShiroFilterFactoryBean();
-        shiroFilter.setSecurityManager(this.securityManager(this.defaultWebSessionManager()));
+        shiroFilter.setSecurityManager(securityManager);
         /**
          * 默认的登陆访问url
          */
