@@ -1,6 +1,7 @@
 package com.secondhandcar.admin.config;
 
 import com.secondhandcar.admin.realm.ShiroRealm;
+import com.secondhandcar.admin.utils.SpringContextHolder;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
@@ -32,15 +33,14 @@ public class ShiroConfig {
     /**
      * 安全管理器
      */
-    @Bean
-    public DefaultWebSecurityManager securityManager(CookieRememberMeManager rememberMeManager,
-                                                     CacheManager cacheShiroManager, SessionManager sessionManager) {
+    @Bean(name = "securityManager")
+    public DefaultWebSecurityManager securityManager() {
         log.info("初始化安全管理器");
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(this.shiroRealm());
-        securityManager.setCacheManager(cacheShiroManager);
-        securityManager.setRememberMeManager(rememberMeManager);
-        securityManager.setSessionManager(sessionManager);
+//        securityManager.setCacheManager(this.getCacheShiroManager(SpringContextHolder.getBean(EhCacheManagerFactoryBean.class)));
+//        securityManager.setRememberMeManager(this.rememberMeManager());
+        securityManager.setSessionManager(this.defaultWebSessionManager());
         return securityManager;
     }
 
@@ -59,10 +59,10 @@ public class ShiroConfig {
      */
     @Bean
     @ConditionalOnProperty(prefix = "shiroConfig", name = "spring-session-open", havingValue = "false")
-    public DefaultWebSessionManager defaultWebSessionManager(CacheManager cacheShiroManager) {
+    public DefaultWebSessionManager defaultWebSessionManager() {
         log.info("初始化session管理器 单机环境");
         DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
-        sessionManager.setCacheManager(cacheShiroManager);
+//        sessionManager.setCacheManager(this.getCacheShiroManager(SpringContextHolder.getBean(EhCacheManagerFactoryBean.class)));
         sessionManager.setSessionValidationInterval(900 * 1000);
         sessionManager.setGlobalSessionTimeout(900 * 1000);
         sessionManager.setDeleteInvalidSessions(true);
@@ -121,10 +121,10 @@ public class ShiroConfig {
      * Shiro的过滤器链
      */
     @Bean
-    public ShiroFilterFactoryBean shiroFilter(DefaultWebSecurityManager securityManager) {
+    public ShiroFilterFactoryBean shiroFilter() {
         log.info("初始化Shiro的过滤器链");
         ShiroFilterFactoryBean shiroFilter = new ShiroFilterFactoryBean();
-        shiroFilter.setSecurityManager(securityManager);
+        shiroFilter.setSecurityManager(this.securityManager());
         /**
          * 默认的登陆访问url
          */
