@@ -3,7 +3,7 @@ package com.secondhandcar.admin.common.constants;
 /**
  * Created by xiet on 2017/10/10.
  */
-public class SystemConstants {
+public interface SystemConstants {
 
     /**
      * 系统默认的管理员密码

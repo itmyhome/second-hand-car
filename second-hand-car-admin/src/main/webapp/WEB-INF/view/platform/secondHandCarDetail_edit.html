@@ -3,8 +3,8 @@
     <div class="ibox-content">
         <div class="form-horizontal">
 
-            <input type="hidden" id="id" value="${secondHandCar.id}">
-            <input type="hidden" id="carId" value="${secondHandCar.carId}">
+            <input type="hidden" id="id" value="${secondHandCarDetail.id!}">
+            <input type="hidden" id="carId" value="${secondHandCar.carId!}">
 
             <div class="row">
                 <div class="col-sm-6 b-r" id="itemsArea">
@@ -21,11 +21,29 @@
                     <#input id="insuranceDate" name="商业险到期描述" underline="true" value="${secondHandCarDetail.insuranceDate!}"/>
 
                     <#button btnCss="info" name="增加检测详细项目" icon="fa-plus" clickFun="SecondHandCarInfoDlg.addSecondHandCarEvaluateItems()"/>
-
+                    @for(item in secondHandCarEvaluateItemList){
+                    <div class="form-group" name="secondHandCarEvaluateItem" id="secondHandCarEvaluateItem${itemLP.index}">
+                        <label class="col-sm-2 control-label" style="width: 12%;">名称</label>
+                        <div class="col-sm-2">
+                            <input class="form-control" type="text" name="title" value="${item.title}">
+                        </div>
+                        <label class="col-sm-2 control-label" style="width: 12%;">成功数量</label>
+                        <div class="col-sm-2">
+                            <input class="form-control" type="text" name="count" value="${item.count}">
+                        </div>
+                        <label class="col-sm-2 control-label" style="width: 12%;">失败数量</label>
+                        <div class="col-sm-2">
+                            <input class="form-control" type="text" name="faile" value="${item.faile}">
+                        </div>
+                        <div class="col-sm-4">
+                            <#button btnCss="danger" name="删除" id="cancel" icon="fa-remove" clickFun="SecondHandCarInfoDlg.deleteItem(event)"/>
+                        </div>
+                    </div>
+                    @}
                 </div>
 
                 <div class="col-sm-6" id="driverInfoContent">
-
+                    <input type="hidden" id="thumbSize" value="${secondHandCarHighlightConfigItemsList.~size!0}" />
                     <#input id="dealPrice" name="折让价" underline="true" value="${secondHandCarDetail.dealPrice!}" />
                     <#input id="newPrice" name="新车价格" underline="true" value="${secondHandCarDetail.newPrice!}" />
                     <#input id="useDate" name="使用年限" underline="true" value="${secondHandCarDetail.useDate!}" />
@@ -38,6 +56,26 @@
                     <#input id="phone" name="联系电话" underline="true" value="${secondHandCarDetail.phone!}" />
 
                     <#button btnCss="info" name="增加高配属性项目" icon="fa-plus" clickFun="SecondHandCarInfoDlg.addSecondHandCarHighlightConfigItem()"/>
+                    @for(highlightConfigItem in secondHandCarHighlightConfigItemsList){
+                    <div class="form-group" name="secondHandCarHighlightConfigItem" id="secondHandCarHighlightConfigItem${highlightConfigItemLP.index}">
+                        <label class="col-sm-2 control-label" style="width: 12%;">高配属性名称</label>
+                        <div class="col-sm-2">
+                            <input class="form-control" type="text" name="title" value="${highlightConfigItem.title}">
+                        </div>
+                        <div class="col-sm-4">
+                            <#avatar id="image${highlightConfigItemLP.index}" name="高配属性图片" underline="true" avatarImg="${highlightConfigItem.image}"/>
+                        </div>
+                        <div class="col-sm-2" style="width: 12%;">
+                            <#select id="isAdd" name="是否是加装" underline="true" value="${highlightConfigItem.isAdd}">
+                                <option value="1">是</option>
+                                <option value="0">否</option>
+                            </#select>
+                        </div>
+                        <div class="col-sm-2">
+                            <#button btnCss="danger" name="删除" id="cancel" icon="fa-remove" clickFun="SecondHandCarInfoDlg.deleteItem(event)"/>
+                        </div>
+                    </div>
+                    @}
                 </div>
 
             </div>
@@ -75,7 +113,6 @@
 
 <script type="text/template" id="highLightConfigItem">
     <div class="form-group" name="secondHandCarHighlightConfigItem" id="secondHandCarHighlightConfigItem">
-        <input type="hidden" id="thumbSize">
         <label class="col-sm-2 control-label" style="width: 12%;">高配属性名称</label>
         <div class="col-sm-2">
             <input class="form-control" type="text" name="title">

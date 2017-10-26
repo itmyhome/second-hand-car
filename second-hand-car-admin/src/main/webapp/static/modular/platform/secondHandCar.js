@@ -85,6 +85,20 @@ SecondHandCar.openSecondHandCarDetail = function () {
     }
 };
 
+SecondHandCar.editSecondHandCarDetail = function () {
+    if (this.check()) {
+        var index = layer.open({
+            type: 2,
+            title: '二手车详情',
+            area: ['100%', '100%'], //宽高
+            fix: false, //不固定
+            maxmin: true,
+            content: SecondHandCarAdmin.ctxPath + '/secondHandCarDetail/secondHandCarDetail_edit/' + SecondHandCar.seItem.id
+        });
+        this.layerIndex = index;
+    }
+};
+
 /**
  * 删除二手车
  */

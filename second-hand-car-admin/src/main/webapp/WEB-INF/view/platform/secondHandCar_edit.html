@@ -7,7 +7,7 @@
             <input type="hidden" id="carId" value="${secondHandCar.carId}">
 
             <div class="row">
-                <div class="col-sm-6 b-r" id="itemsArea">
+                <div class="col-sm-12 b-r" id="itemsArea">
                     <#input id="title" name="车辆标题" underline="true" value="${secondHandCar.title}"/>
 
                     <#input id="licenseDate" name="上牌日期" underline="true" type="date" value="${secondHandCar.licenseDate}"
@@ -28,11 +28,11 @@
                     @for(item in secondHandCarHotParamList){
                     <div class="form-group" name="secondHandCarHotParam" id="secondHandCarHotParam{itemLP.index}">
                         <label class="col-sm-2 control-label">热门属性文本</label>
-                        <div class="col-sm-2">
+                        <div class="col-sm-4">
                             <input class="form-control" type="text" name="text" value="${item.text}">
                         </div>
-                        <label class="col-sm-2 control-label" style="width: 8%;">热门属性颜色</label>
-                        <div class="col-sm-2">
+                        <label class="col-sm-2 control-label" >热门属性颜色</label>
+                        <div class="col-sm-4">
                             <input class="form-control" type="text" name="color" value="${item.color}">
                         </div>
                         <div class="col-sm-4">
@@ -58,11 +58,11 @@
 <script type="text/template" id="itemTemplate">
     <div class="form-group" name="secondHandCarHotParam" id="secondHandCarHotParam">
         <label class="col-sm-2 control-label">热门属性文本</label>
-        <div class="col-sm-2">
+        <div class="col-sm-4">
             <input class="form-control" type="text" name="text">
         </div>
-        <label class="col-sm-2 control-label" style="width: 8%;">热门属性颜色</label>
-        <div class="col-sm-2">
+        <label class="col-sm-2 control-label" >热门属性颜色</label>
+        <div class="col-sm-4">
             <input class="form-control" type="text" name="color">
         </div>
         <div class="col-sm-4">

@@ -6,6 +6,7 @@ import com.qiniu.http.Response;
 import com.qiniu.storage.Configuration;
 import com.qiniu.storage.UploadManager;
 import com.qiniu.util.Auth;
+import com.secondhandcar.admin.common.constants.SystemConstants;
 import com.secondhandcar.admin.common.enums.BizExceptionEnum;
 import com.secondhandcar.admin.common.enums.UserStatusEnum;
 import com.secondhandcar.admin.common.exception.BussinessException;
@@ -213,6 +214,58 @@ public class UserController extends BaseController{
         } catch (QiniuException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 跳转到角色分配页面
+     */
+    //@RequiresPermissions("/mgr/role_assign")  //利用shiro自带的权限检查
+    @RequestMapping("/role_assign/{userId}")
+    public String roleAssign(@PathVariable Integer userId, Model model) {
+        if (ToolUtil.isEmpty(userId)) {
+            throw new BussinessException(BizExceptionEnum.REQUEST_NULL);
+        }
+        User user = userDao.selectById(userId);
+        model.addAttribute("userId", userId);
+        model.addAttribute("userAccount", user.getAccount());
+        return PREFIX + "user_roleassign.html";
+    }
+
+    /**
+     * 分配角色
+     */
+    @RequestMapping("/setRole")
+//    @BussinessLog(value = "分配角色", key = "userId,roleIds", dict = UserDict.class)
+    @ResponseBody
+    public Object setRole(@RequestParam("userId") Integer userId, @RequestParam("roleIds") String roleIds) {
+        if (ToolUtil.isOneEmpty(userId, roleIds)) {
+            throw new BussinessException(BizExceptionEnum.REQUEST_NULL);
+        }
+        //不能修改超级管理员
+        if (userId.equals(SystemConstants.ADMIN_ID)) {
+            throw new BussinessException(BizExceptionEnum.CANT_CHANGE_ADMIN);
+        }
+        assertAuth(userId);
+        userDao.setRoles(userId, roleIds);
+        return SUCCESS_TIP;
+    }
+
+    /**
+     * 判断当前登录的用户是否有操作这个用户的权限
+     */
+    private void assertAuth(Integer userId) {
+        if (ShiroUtils.isAdmin()) {
+            return;
+        }
+        List<Integer> deptDataScope = ShiroUtils.getDeptDataScope();
+        User user = this.userDao.selectById(userId);
+        Integer deptid = user.getDeptid();
+        if (deptDataScope.contains(deptid)) {
+            return;
+        } else {
+            throw new BussinessException(BizExceptionEnum.NO_PERMITION);
+        }
+
     }
 
 

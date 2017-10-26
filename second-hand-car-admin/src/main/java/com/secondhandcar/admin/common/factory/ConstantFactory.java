@@ -74,12 +74,26 @@ public class ConstantFactory implements IConstantFactory {
 
     @Override
     public String getSingleRoleName(Integer roleId) {
-        return null;
+        if (0 == roleId) {
+            return "--";
+        }
+        Role roleObj = roleDao.selectById(roleId);
+        if (ToolUtil.isNotEmpty(roleObj) && ToolUtil.isNotEmpty(roleObj.getName())) {
+            return roleObj.getName();
+        }
+        return "";
     }
 
     @Override
     public String getSingleRoleTip(Integer roleId) {
-        return null;
+        if (0 == roleId) {
+            return "--";
+        }
+        Role roleObj = roleDao.selectById(roleId);
+        if (ToolUtil.isNotEmpty(roleObj) && ToolUtil.isNotEmpty(roleObj.getName())) {
+            return roleObj.getTips();
+        }
+        return "";
     }
 
 
