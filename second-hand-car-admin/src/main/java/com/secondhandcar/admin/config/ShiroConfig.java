@@ -162,14 +162,14 @@ public class ShiroConfig {
     /**
      * 在方法中 注入 securityManager,进行代理控制
      */
-    @Bean
-    public MethodInvokingFactoryBean methodInvokingFactoryBean(DefaultWebSecurityManager securityManager) {
-        log.info("初始化securityManager");
-        MethodInvokingFactoryBean bean = new MethodInvokingFactoryBean();
-        bean.setStaticMethod("org.apache.shiro.SecurityUtils.setSecurityManager");
-        bean.setArguments(new Object[]{securityManager});
-        return bean;
-    }
+//    @Bean
+//    public MethodInvokingFactoryBean methodInvokingFactoryBean(DefaultWebSecurityManager securityManager) {
+//        log.info("初始化securityManager");
+//        MethodInvokingFactoryBean bean = new MethodInvokingFactoryBean();
+//        bean.setStaticMethod("org.apache.shiro.SecurityUtils.setSecurityManager");
+//        bean.setArguments(new Object[]{securityManager});
+//        return bean;
+//    }
 
     /**
      * Shiro生命周期处理器:
