@@ -44,7 +44,7 @@ public class SecondHandCarController extends BaseController{
      * @param carId
      * @return
      */
-    @RequestMapping(value="/detail")
+    @RequestMapping(value="/findSecondHandCarDetail")
     @ResponseBody
     public Object findSecondHandCarDetail(String carId){
         SecondHandCarDetailResponseDTO response = secondHandCarDetailService.findSecondHandCarDetail(carId);
@@ -56,7 +56,7 @@ public class SecondHandCarController extends BaseController{
      * @param carId
      * @return
      */
-    @RequestMapping(value="/config")
+    @RequestMapping(value="/findSecondHandCarConfig")
     @ResponseBody
     public Object findSecondHandCarConfig(String carId){
         return null;

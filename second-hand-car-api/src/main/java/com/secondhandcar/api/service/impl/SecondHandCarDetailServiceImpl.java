@@ -22,7 +22,6 @@ public class SecondHandCarDetailServiceImpl implements SecondHandCarDetailServic
     public SecondHandCarDetailResponseDTO findSecondHandCarDetail(String carId) {
         SecondHandCarDetailResponseDTO response = new SecondHandCarDetailResponseDTO();
         if(carId != null){
-//            String carId = secondHandCar.getCarId();
             response = secondHandCarDetailDao.findSecondHandCarDetail(carId);
         }
         return response;
