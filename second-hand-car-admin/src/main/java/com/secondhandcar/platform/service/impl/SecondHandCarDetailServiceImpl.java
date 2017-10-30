@@ -1,5 +1,6 @@
 package com.secondhandcar.platform.service.impl;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.google.common.collect.Maps;
 import com.secondhandcar.admin.utils.DictUtils;
 import com.secondhandcar.platform.dao.SecondHandCarDetailDao;
@@ -30,6 +31,7 @@ public class SecondHandCarDetailServiceImpl implements SecondHandCarDetailServic
     private SecondHandCarEvaluateItemsDao secondHandCarEvaluateItemsDao;
     @Resource
     private SecondHandCarHighlightConfigItemDao secondHandCarHighlightConfigItemDao;
+
     @Override
     public void add(SecondHandCarDetail secondHandCarDetail) {
 
@@ -38,9 +40,9 @@ public class SecondHandCarDetailServiceImpl implements SecondHandCarDetailServic
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
     public void update(SecondHandCarDetail secondHandCarDetail) {
-        if(secondHandCarDetail.getId() == null){
+        if (secondHandCarDetail.getId() == null) {
             secondHandCarDetailDao.insert(secondHandCarDetail);
-        }else{
+        } else {
             //不为空才去删除
             secondHandCarDetailDao.updateById(secondHandCarDetail);
             String carId = secondHandCarDetail.getCarId();
@@ -51,14 +53,14 @@ public class SecondHandCarDetailServiceImpl implements SecondHandCarDetailServic
         insertSecondHandCarHighlightConfigItem(secondHandCarDetail);
     }
 
-    private void insertSecondHandCarEvaluatrItems(SecondHandCarDetail secondHandCarDetail){
+    private void insertSecondHandCarEvaluatrItems(SecondHandCarDetail secondHandCarDetail) {
         List<Map<String, String>> items = DictUtils.parseKeyValueForThree(secondHandCarDetail.getEvaluateItem());
 
 
         for (Map<String, String> item : items) {
             String title = item.get(DictUtils.MUTI_STR_KEY);
             String count = item.get(DictUtils.MUTI_STR_VALUE);
-            String faile = item.get(DictUtils.MUTI_STR_VALUE);
+            String faile = item.get(DictUtils.MUTI_STR_THREE);
             SecondHandCarEvaluateItem secondHandCarEvaluateItem = new SecondHandCarEvaluateItem();
 
             secondHandCarEvaluateItem.setCarId(secondHandCarDetail.getCarId());
@@ -69,27 +71,29 @@ public class SecondHandCarDetailServiceImpl implements SecondHandCarDetailServic
         }
     }
 
-    private void insertSecondHandCarHighlightConfigItem(SecondHandCarDetail secondHandCarDetail){
-        List<Map<String, String>> items = DictUtils.parseKeyValueForThree(secondHandCarDetail.getEvaluateItem());
+    private void insertSecondHandCarHighlightConfigItem(SecondHandCarDetail secondHandCarDetail) {
+        List<Map<String, String>> items = DictUtils.parseKeyValueForImage(secondHandCarDetail.getHighlightConfigItem());
 
 
         for (Map<String, String> item : items) {
             String title = item.get(DictUtils.MUTI_STR_KEY);
-            String image = item.get(DictUtils.MUTI_STR_VALUE);
-            String isAdd = item.get(DictUtils.MUTI_STR_VALUE);
+            String image = item.get("image");
+            String isAdd = item.get(DictUtils.MUTI_STR_THREE);
             SecondHandCarHighlightConfigItem secondHandCarHighlightConfigItem = new SecondHandCarHighlightConfigItem();
 
             secondHandCarHighlightConfigItem.setCarId(secondHandCarDetail.getCarId());
             secondHandCarHighlightConfigItem.setTitle(title);
             secondHandCarHighlightConfigItem.setImage(image);
-            secondHandCarHighlightConfigItem.setAdd(isAdd.equals("1") ? true : false );
+            secondHandCarHighlightConfigItem.setAdd(isAdd.equals("1") ? true : false);
             this.addOrEditSecondHandCarHighlightConfigItem(secondHandCarHighlightConfigItem);
         }
     }
 
     @Override
-    public SecondHandCarDetail selectById(Integer id) {
-        return secondHandCarDetailDao.selectById(id);
+    public SecondHandCarDetail selectByCarId(String carId) {
+        SecondHandCarDetail secondHandCarDetail = new SecondHandCarDetail();
+        secondHandCarDetail.setCarId(carId);
+        return secondHandCarDetailDao.selectOne(secondHandCarDetail);
     }
 
     @Override
@@ -117,5 +121,15 @@ public class SecondHandCarDetailServiceImpl implements SecondHandCarDetailServic
         Integer count = secondHandCarHighlightConfigItemDao.deleteByMap(columnMap);
         log.info("删除高配属性记录数为{}", count);
 
+    }
+
+    @Override
+    public List<SecondHandCarEvaluateItem> selectEvaluateItemListByCarId(String secondHandCarId) {
+        return secondHandCarEvaluateItemsDao.selectList(new EntityWrapper<SecondHandCarEvaluateItem>().eq("car_id", secondHandCarId));
+    }
+
+    @Override
+    public List<SecondHandCarHighlightConfigItem> selectHighlightConfigItemListByCarId(String secondHandCarId) {
+        return secondHandCarHighlightConfigItemDao.selectList(new EntityWrapper<SecondHandCarHighlightConfigItem>().eq("car_id", secondHandCarId));
     }
 }

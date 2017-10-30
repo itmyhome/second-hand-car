@@ -4,6 +4,8 @@ import com.secondhandcar.platform.model.SecondHandCarDetail;
 import com.secondhandcar.platform.model.SecondHandCarEvaluateItem;
 import com.secondhandcar.platform.model.SecondHandCarHighlightConfigItem;
 
+import java.util.List;
+
 /**
  * Created by xiet on 2017/10/17.
  */
@@ -17,7 +19,7 @@ public interface SecondHandCarDetailService {
      */
     void update(SecondHandCarDetail secondHandCarDetail);
 
-    SecondHandCarDetail selectById(Integer id);
+    SecondHandCarDetail selectByCarId(String carId);
 
     /**
      * 新增或修改详细检测项目
@@ -42,4 +44,8 @@ public interface SecondHandCarDetailService {
      * @param carId
      */
     void deleteHighlightConfigItem(String carId);
+
+    List<SecondHandCarEvaluateItem> selectEvaluateItemListByCarId(String secondHandCarId);
+
+    List<SecondHandCarHighlightConfigItem> selectHighlightConfigItemListByCarId(String secondHandCarId);
 }

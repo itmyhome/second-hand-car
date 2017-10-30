@@ -1,12 +1,14 @@
 package com.secondhandcar.admin.controller;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.secondhandcar.admin.common.constants.SystemConstants;
 import com.secondhandcar.admin.common.enums.BizExceptionEnum;
 import com.secondhandcar.admin.common.exception.BussinessException;
 import com.secondhandcar.admin.dao.DictDao;
 import com.secondhandcar.admin.model.Dict;
 import com.secondhandcar.admin.service.DictService;
 import com.secondhandcar.admin.warpper.DictWarpper;
+import com.secondhandcar.core.annotion.Permission;
 import com.secondhandcar.core.controller.BaseController;
 import com.secondhandcar.core.utils.ToolUtil;
 import org.springframework.stereotype.Controller;

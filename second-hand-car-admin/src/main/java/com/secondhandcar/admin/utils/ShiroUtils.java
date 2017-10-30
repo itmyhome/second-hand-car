@@ -1,5 +1,7 @@
 package com.secondhandcar.admin.utils;
 
+import com.secondhandcar.admin.common.constants.SystemConstants;
+import com.secondhandcar.admin.common.factory.ConstantFactory;
 import com.secondhandcar.core.utils.ToolUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.crypto.hash.Md5Hash;
@@ -7,6 +9,8 @@ import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ByteSource;
+
+import java.util.List;
 
 /**
  * Created by xiet on 2017/10/10.
@@ -242,27 +246,27 @@ public class ShiroUtils {
         return "";
     }
 
-//    /**
-//     * 获取当前用户的部门数据范围的集合
-//     */
-//    public static List<Integer> getDeptDataScope() {
-//        Integer deptId = getUser().getDeptId();
-//        List<Integer> subDeptIds = ConstantFactory.me().getSubDeptId(deptId);
-//        subDeptIds.add(deptId);
-//        return subDeptIds;
-//    }
+    /**
+     * 获取当前用户的部门数据范围的集合
+     */
+    public static List<Integer> getDeptDataScope() {
+        Integer deptId = getUser().getDeptId();
+        List<Integer> subDeptIds = ConstantFactory.me().getSubDeptId(deptId);
+        subDeptIds.add(deptId);
+        return subDeptIds;
+    }
 //
-//    /**
-//     * 判断当前用户是否是超级管理员
-//     */
-//    public static boolean isAdmin() {
-//        List<Integer> roleList = getUser().getRoleList();
-//        for (Integer integer : roleList) {
-//            String singleRoleTip = ConstantFactory.me().getSingleRoleTip(integer);
-//            if (singleRoleTip.equals(SystemConstants.ADMIN_NAME)) {
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
+    /**
+     * 判断当前用户是否是超级管理员
+     */
+    public static boolean isAdmin() {
+        List<Integer> roleList = getUser().getRoleList();
+        for (Integer integer : roleList) {
+            String singleRoleTip = ConstantFactory.me().getSingleRoleTip(integer);
+            if (singleRoleTip.equals(SystemConstants.ADMIN_NAME)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

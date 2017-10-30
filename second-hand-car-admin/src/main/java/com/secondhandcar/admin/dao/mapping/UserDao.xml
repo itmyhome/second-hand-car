@@ -34,6 +34,9 @@
 		</if>
 	</select>
 
-
+	<update id="setRoles">
+		update user set roleid = #{roleIds} where id =
+		#{userId}
+	</update>
 
 </mapper>
