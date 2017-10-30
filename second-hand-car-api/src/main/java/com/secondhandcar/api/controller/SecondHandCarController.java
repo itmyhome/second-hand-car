@@ -19,6 +19,7 @@ import java.util.List;
  * Created by xiet on 2017/10/16.
  */
 @Controller
+@RequestMapping(value = "/secondHandCar")
 public class SecondHandCarController extends BaseController{
 
     @Resource
@@ -58,7 +59,7 @@ public class SecondHandCarController extends BaseController{
     @RequestMapping(value="/config/{carId}")
     @ResponseBody
     public Object findSecondHandCarConfig(@PathVariable String carId){
-        return null;
+        return ResultBuilderUtil.success();
     }
 
 }

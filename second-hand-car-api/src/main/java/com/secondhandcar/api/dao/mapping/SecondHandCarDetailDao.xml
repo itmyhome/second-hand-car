@@ -74,8 +74,7 @@
             i.url,
             i.icon,
             h.title,
-            h.image,
-            h.is_add
+            h.image
         FROM second_hand_car_detail d
         LEFT JOIN second_hand_car_evaluate_item i ON d.car_id = i.car_id
         LEFT JOIN second_hand_car_highlight_config_item h ON d.car_id = h.car_id
