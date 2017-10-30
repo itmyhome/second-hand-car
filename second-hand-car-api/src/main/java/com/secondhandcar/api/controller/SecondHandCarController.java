@@ -2,12 +2,12 @@ package com.secondhandcar.api.controller;
 
 import com.secondhandcar.api.dto.SecondHandCarDetailResponseDTO;
 import com.secondhandcar.api.dto.SecondHandCarResponseDTO;
-import com.secondhandcar.api.model.SecondHandCar;
 import com.secondhandcar.api.service.SecondHandCarDetailService;
 import com.secondhandcar.api.service.SecondHandCarService;
 import com.secondhandcar.core.controller.BaseController;
 import com.secondhandcar.core.utils.ResultBuilderUtil;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -19,7 +19,6 @@ import java.util.List;
  * Created by xiet on 2017/10/16.
  */
 @Controller
-@RequestMapping(value="/secondHandCar")
 public class SecondHandCarController extends BaseController{
 
     @Resource
@@ -32,7 +31,7 @@ public class SecondHandCarController extends BaseController{
      * 获取二手车列表
      * @return
      */
-    @RequestMapping(value = "/findSecondHandCar")
+    @RequestMapping(value = "/list")
     @ResponseBody
     public Object findSecondHandCars(String condition){
         List<SecondHandCarResponseDTO> response = secondHandCarService.findSecondHandCars();
@@ -44,9 +43,9 @@ public class SecondHandCarController extends BaseController{
      * @param carId
      * @return
      */
-    @RequestMapping(value="/findSecondHandCarDetail")
+    @RequestMapping(value="/detail/{carId}")
     @ResponseBody
-    public Object findSecondHandCarDetail(String carId){
+    public Object findSecondHandCarDetail(@PathVariable String carId){
         SecondHandCarDetailResponseDTO response = secondHandCarDetailService.findSecondHandCarDetail(carId);
         return ResultBuilderUtil.success(response);
     }
@@ -56,9 +55,9 @@ public class SecondHandCarController extends BaseController{
      * @param carId
      * @return
      */
-    @RequestMapping(value="/findSecondHandCarConfig")
+    @RequestMapping(value="/config/{carId}")
     @ResponseBody
-    public Object findSecondHandCarConfig(String carId){
+    public Object findSecondHandCarConfig(@PathVariable String carId){
         return null;
     }
 

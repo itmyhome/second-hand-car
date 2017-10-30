@@ -3,6 +3,8 @@
 <mapper namespace="com.secondhandcar.api.dao.SecondHandCarDao">
     <resultMap id="secondHandCarResultMap" type="com.secondhandcar.api.dto.SecondHandCarResponseDTO">
         <result property="title" column="title"></result>
+        <result property="id" column="id"></result>
+        <result property="carId" column="car_id"></result>
         <result property="licenseDate" column="license_date"></result>
         <result property="roadHaul" column="road_haul"></result>
         <result property="thumbImg" column="thumb_img"></result>
@@ -20,6 +22,8 @@
     <!-- 查询二手车列表 -->
     <select id="findSecondHandCars" resultMap="secondHandCarResultMap">
         SELECT
+            car.id,
+            car.car_id,
             car.title,
             car.license_date,
             car.road_haul,

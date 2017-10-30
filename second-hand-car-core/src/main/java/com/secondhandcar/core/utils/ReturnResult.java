@@ -16,6 +16,11 @@ public class ReturnResult<T extends Serializable> {
         this.message = "操作成功";
     }
 
+    public ReturnResult(int code , String message){
+        this.code = code;
+        this.message = message;
+    }
+
     public int getCode() {
         return code;
     }

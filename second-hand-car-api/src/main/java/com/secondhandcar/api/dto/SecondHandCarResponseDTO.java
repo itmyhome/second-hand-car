@@ -13,6 +13,10 @@ import java.util.List;
 @Data
 public class SecondHandCarResponseDTO implements Serializable{
 
+    private Integer id;
+
+    private String carId;
+
     /**
      * 车辆标题
      */
